@@ -20,6 +20,12 @@ export default {
   components: {
     Footer,
   },
+  watch: {
+    "$route.path": function(toPath, fromPath) {
+      this.$store.commit("toPath", toPath);
+      this.$store.commit("fromPath", fromPath);
+    },
+  },
 };
 </script>
 
