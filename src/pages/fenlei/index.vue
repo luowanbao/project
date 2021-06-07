@@ -48,7 +48,7 @@ export default {
       params: {
         page: 1,
         per: 20,
-        product_category: '60bc8fbff1842a8e6c036575'
+        product_category: '60bb1ae57da3a233e89afa54'
       },
       categoryProducts: [],
       currenttitle: '手机',
@@ -90,28 +90,28 @@ export default {
       console.log(index);
       switch (index) {
         case 0:
-          this.params.product_category = '60bc8fbff1842a8e6c036575';
+          this.params.product_category = '60bb1ae57da3a233e89afa54';
           this.currenttitle = '手机';
           break;
         case 1:
-          this.params.product_category = '60bc8fbff1842a8e6c036576';
+          this.params.product_category = '60bb1ae57da3a233e89afa55';
           this.currenttitle = '智能手表';
           break;
         case 2:
-          this.params.product_category = '60bc8fbff1842a8e6c036577';
+          this.params.product_category = '60bb1ae57da3a233e89afa56';
           this.currenttitle = '耳机';
           break;
         case 3:
-          this.params.product_category = '60bc8fbff1842a8e6c036578';
+          this.params.product_category = '60bb1ae57da3a233e89afa57';
           this.currenttitle = '电视';
           break;
         case 4:
-          this.params.product_category = '60bc8fbff1842a8e6c036579';
+          this.params.product_category = '60bb1ae57da3a233e89afa58';
           this.currenttitle = '灯具';
           break;
       
         default:
-          this.params.product_category = '60bc8fbff1842a8e6c036575';
+          this.params.product_category = '60bb1ae57da3a233e89afa54';
           this.currenttitle = '手机';
           break;
       }
