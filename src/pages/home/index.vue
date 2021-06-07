@@ -473,15 +473,15 @@
             alt=""
             class="e2"
           />
-          <div class="bjb-list2s">
-            <ul class="bjb-list2">
-              <li v-for="item in list10" :key="item._id">
-                <img :src="item.coverImg" alt="" />
-                <p>{{ item.name }}</p>
-                <h4>{{ item.price }}</h4>
-              </li>
-            </ul>
-          </div>
+            <!-- <div class="bjb-list2s">
+              <ul class="bjb-list2">
+                <li v-for="item in list10" :key="item._id">
+                  <img :src="item.coverImg" alt="" />
+                  <p>{{ item.name }}</p>
+                  <h4>{{ item.price }}</h4>
+                </li>
+              </ul>
+            </div> -->
         </van-tab>
       </van-tabs>
     </div>
