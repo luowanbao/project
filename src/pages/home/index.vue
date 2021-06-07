@@ -444,8 +444,14 @@
             alt=""
             class="e1"
           />
-          <ul>
-            <li></li>
+          <ul class="bjbs">
+            <li v-for="item in list9" :key="item._id">
+              <img :src="item.coverImg" alt="" />
+              <p>
+                <span>{{ item.name }}</span>
+                <span>{{ item.price }}</span>
+              </p>
+            </li>
           </ul>
         </van-tab>
       </van-tabs>
@@ -508,6 +514,11 @@ export default {
         per: 9,
         page: 1,
         product_category: "60bca58f95a4da29d418baaf",
+      },
+      params9: {
+        per: 2,
+        page: 1,
+        product_category: "60bca58f95a4da29d418baad",
       },
     };
   },
