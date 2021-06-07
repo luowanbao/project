@@ -10,8 +10,8 @@
         />
       </div>
       <div class="headerRight">
-        <span class="iconfont icon-huiyuanzhongxin"></span>
-        <span class="iconfont icon-shenglvehao"></span>
+        <span class="iconfont icon-anquan"></span>
+        <span class="iconfont icon-doubt"></span>
       </div>
     </div>
     <div class="nav">
@@ -26,8 +26,8 @@
     <h3>小米账号登录</h3>
     <van-form @submit="onSubmit">
       <van-field
-        v-model="username"
-        name="用户名"
+        v-model="userName"
+        name="userName"
         label=""
         placeholder="邮箱/手机号码/小米ID"
         :rules="[{ required: true, message: '请填写用户名' }]"
@@ -35,7 +35,7 @@
       <van-field
         v-model="password"
         type="password"
-        name="密码"
+        name="password"
         label=""
         placeholder="请输入密码"
         :rules="[{ required: true, message: '请填写密码' }]"
@@ -49,17 +49,17 @@
     <div class="content">
       <p>手机号登录</p>
       <p>|</p>
-      <p @click="goReg">立即注册</p>
+      <p @click="goReg" class="atOnce">立即注册</p>
     </div>
     <div class="ii">
       <i>其他方式登录</i>
     </div>
     <div class="allIcon">
+      <span class="iconfont icon-qq"></span>
+      <span class="iconfont icon-weibo"></span>
+      <span class="iconfont icon-changyonglogo30"></span>
       <span class="iconfont icon-weixin"></span>
-      <span class="iconfont icon-weixin"></span>
-      <span class="iconfont icon-weixin"></span>
-      <span class="iconfont icon-weixin"></span>
-      <span class="iconfont icon-weixin"></span>
+      <span class="iconfont icon-apple"></span>
     </div>
   </div>
 </template>
@@ -68,6 +68,8 @@
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
 import { Toast } from "vant";
+import { reqLogin } from "../../api/user";
+import { setToken } from "../../utils/auth";
 
 export default {
   //import引入的组件需要注册到对象(components)中才能使用
@@ -75,7 +77,7 @@ export default {
   data() {
     //这里存放数据,返回值为一个对象
     return {
-      username: "",
+      userName: "",
       password: "",
       show: false,
       actions: [
@@ -91,12 +93,27 @@ export default {
   watch: {},
   //方法集合
   methods: {
+    //路由跳转到注册
     goReg() {
       this.$router.push("/reg");
     },
-    onSubmit(values) {
-      console.log("submit", values);
+    //提交登录
+    async onSubmit(values) {
+      // console.log("submit", values);
+      const result = await reqLogin({ ...values });
+      console.log(result);
+      if (result.data.code == "error") {
+        Toast("用户名密码错误");
+      } else {
+        setToken(result.data.token);
+        localStorage.setItem("username", this.userName);
+        Toast("登录成功");
+        setTimeout(() => {
+          this.$router.push("/");
+        }, 1000);
+      }
     },
+    //下拉框
     onSelect(item) {
       // 默认情况下点击选项时不会自动收起
       // 可以通过 close-on-click-action 属性开启自动收起
@@ -134,9 +151,11 @@ export default {
 }
 .headers .headerLeft {
   color: #a4a4a4;
+  margin-left: -14px;
 }
 .headers .headerRight span {
-  margin-right: 18px;
+  margin-right: 24px;
+  font-size: 14px;
 }
 .nav {
   padding-top: 20px;
@@ -189,10 +208,38 @@ h3 {
   padding-top: 10px;
 }
 .allIcon span {
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  display: inline-block;
+  border-radius: 35px;
+  background: turquoise;
   font-size: 28px;
   margin-right: 28px;
 }
 .allIcon span:nth-child(5) {
   margin-right: 0;
+  color: #fff;
+  background: #33353b;
+}
+.allIcon span:nth-child(4) {
+  color: #fff;
+  background: #50b674;
+}
+.allIcon span:nth-child(3) {
+  color: #fff;
+  background: #1989fa;
+}
+.allIcon span:nth-child(2) {
+  color: #fff;
+  background: #ea5d5c;
+}
+.allIcon span:nth-child(1) {
+  color: #fff;
+  background: #18acfc;
+}
+.atOnce {
+  color: #2792ff;
 }
 </style>
