@@ -184,6 +184,7 @@ export default {
 };
 </script>
 <style scoped>
+  /* 最外部分类div */
   .fenlei {
     /* display: flex; */
     /* flex-direction: column; */
@@ -193,6 +194,7 @@ export default {
     margin-bottom: 50px;
   }
 
+  /* topbar显示动画 */
   .topbar-enter, .topbar-leave-to {
     transform: translateY(-50px);
     opacity: 0;
@@ -201,6 +203,7 @@ export default {
     transition: all .3s linear;
   }
 
+  /* topbar样式 */
   .fenlei_top /deep/ .van-nav-bar  {
     background: #F2F2F2;
   }
@@ -208,6 +211,7 @@ export default {
     color: rgb(168, 159, 159);
   }
 
+  /* 左侧选项卡切换的样式 */
   .van-sidebar {
     width: 52px;
     float: left;
@@ -215,17 +219,19 @@ export default {
     left: 0;
     top: 50px;
   }
-
+  /* 选中样式 */
   .van-sidebar-item--select {
     color: #FB7D34;
   }
 
+  /* 分割线样式 */
   .fengecontent {
     margin-left: 112px;
     /* float: left; */
     margin-right: 90px;
   }
 
+  /* 中间商品样式展示 */
   .van-grid {
     width: 300px;
     height: 485px;
@@ -238,16 +244,25 @@ export default {
     /* padding-bottom: 100px; */
   }
 
+  /* 出错时显示搜索图片 */
   .van-empty__image img {
     position: relative;
     left: 5px;
   }
 
+  /* 分页器样式 */
   .van-pagination {
     float: left;
     position: absolute;
     left: 60px;
     top: 577px;
+  }
+  .van-pagination /deep/ .van-pagination__item {
+    color: black;
+  }
+  .van-pagination /deep/ .van-pagination__item--active {
+    background: #ff6700;
+    color: #fff;
   }
 
   .proname {
