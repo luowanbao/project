@@ -48,6 +48,20 @@
       "unicode_decimal": 58977
     },
     {
+      "icon_id": "845853",
+      "name": "安全",
+      "font_class": "anquan",
+      "unicode": "e681",
+      "unicode_decimal": 59009
+    },
+    {
+      "icon_id": "880494",
+      "name": "qq",
+      "font_class": "qq",
+      "unicode": "e637",
+      "unicode_decimal": 58935
+    },
+    {
       "icon_id": "979227",
       "name": "会员中心",
       "font_class": "huiyuanzhongxin",
@@ -62,6 +76,13 @@
       "unicode_decimal": 58885
     },
     {
+      "icon_id": "1005778",
+      "name": "支付宝",
+      "font_class": "changyonglogo30",
+      "unicode": "e717",
+      "unicode_decimal": 59159
+    },
+    {
       "icon_id": "1126026",
       "name": "微信",
       "font_class": "weixin",
@@ -74,6 +95,13 @@
       "font_class": "fanhui",
       "unicode": "e675",
       "unicode_decimal": 58997
+    },
+    {
+      "icon_id": "1153614",
+      "name": "安全",
+      "font_class": "anquan1",
+      "unicode": "e68e",
+      "unicode_decimal": 59022
     },
     {
       "icon_id": "1173245",
@@ -139,6 +167,13 @@
       "unicode_decimal": 58941
     },
     {
+      "icon_id": "2019066",
+      "name": "下拉",
+      "font_class": "xiala",
+      "unicode": "e7ab",
+      "unicode_decimal": 59307
+    },
+    {
       "icon_id": "2116278",
       "name": "礼物",
       "font_class": "gift_icon",
@@ -188,11 +223,25 @@
       "unicode_decimal": 58901
     },
     {
+      "icon_id": "3338428",
+      "name": "互联网",
+      "font_class": "hulianwang",
+      "unicode": "e670",
+      "unicode_decimal": 58992
+    },
+    {
       "icon_id": "3858015",
       "name": "海岛",
       "font_class": "haidao_",
       "unicode": "e640",
       "unicode_decimal": 58944
+    },
+    {
+      "icon_id": "3879270",
+      "name": "安全",
+      "font_class": "anquan2",
+      "unicode": "e616",
+      "unicode_decimal": 58902
     },
     {
       "icon_id": "3902417",
@@ -221,6 +270,13 @@
       "font_class": "shu1",
       "unicode": "e778",
       "unicode_decimal": 59256
+    },
+    {
+      "icon_id": "4471486",
+      "name": "返回",
+      "font_class": "fanhui1",
+      "unicode": "e6d0",
+      "unicode_decimal": 59088
     },
     {
       "icon_id": "4933144",
@@ -370,6 +426,20 @@
       "unicode_decimal": 59200
     },
     {
+      "icon_id": "11776582",
+      "name": "微博",
+      "font_class": "weibo",
+      "unicode": "e611",
+      "unicode_decimal": 58897
+    },
+    {
+      "icon_id": "11992184",
+      "name": "apple",
+      "font_class": "apple",
+      "unicode": "e623",
+      "unicode_decimal": 58915
+    },
+    {
       "icon_id": "12025968",
       "name": "浏览历史",
       "font_class": "liulanlishi",
@@ -450,8 +520,8 @@
       "icon_id": "14560669",
       "name": "铃铛",
       "font_class": "lingdang1",
-      "unicode": "e623",
-      "unicode_decimal": 58915
+      "unicode": "e624",
+      "unicode_decimal": 58916
     },
     {
       "icon_id": "15370883",
@@ -482,11 +552,25 @@
       "unicode_decimal": 59412
     },
     {
+      "icon_id": "17999801",
+      "name": "疑问",
+      "font_class": "doubt",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
       "icon_id": "18050165",
       "name": "定位",
       "font_class": "dingwei",
       "unicode": "e6e4",
       "unicode_decimal": 59108
+    },
+    {
+      "icon_id": "18311491",
+      "name": "下  拉",
+      "font_class": "xiala1",
+      "unicode": "e646",
+      "unicode_decimal": 58950
     },
     {
       "icon_id": "18358833",
@@ -503,6 +587,13 @@
       "unicode_decimal": 59047
     },
     {
+      "icon_id": "18916447",
+      "name": "下 拉",
+      "font_class": "xiala2",
+      "unicode": "e6bb",
+      "unicode_decimal": 59067
+    },
+    {
       "icon_id": "18968924",
       "name": "朋友",
       "font_class": "pengyou",
@@ -515,6 +606,13 @@
       "font_class": "guanggao",
       "unicode": "f094",
       "unicode_decimal": 61588
+    },
+    {
+      "icon_id": "19378045",
+      "name": "下拉",
+      "font_class": "xiala3",
+      "unicode": "e61a",
+      "unicode_decimal": 58906
     },
     {
       "icon_id": "19490749",

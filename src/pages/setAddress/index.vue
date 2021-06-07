@@ -1,5 +1,5 @@
 <template>
-  <div>路径管理</div>
+  <div></div>
 </template>
 
 <script>
