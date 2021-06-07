@@ -12,8 +12,8 @@
       </template>
     </van-nav-bar>
     <ul class="list">
-      <li>
-        <span class="font" @click="adderss()">地址管理</span
+      <li  @click="adderss()">
+        <span class="font">地址管理</span
         ><span class="iconfont icon-qianjin"></span>
       </li>
       <li>
