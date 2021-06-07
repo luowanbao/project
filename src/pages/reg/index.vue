@@ -1,5 +1,15 @@
 <template>
-  <div>注册</div>
+  <div class="reg">
+    <div class="headers">
+      <div class="headerLeft">
+        <span class="iconfont icon-fanhui"></span>
+      </div>
+      <div class="headerRight">
+        <span class="iconfont icon-huiyuanzhongxin"></span>
+        <span class="iconfont icon-shenglvehao"></span>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -33,4 +43,24 @@ export default {
 };
 </script>
 <style scoped>
+.reg {
+  /* width: 100%; */
+  /* height: 100%; */
+  padding: 24px;
+}
+.headers {
+  /* width: 100%; */
+  /* margin: 20px; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #343434;
+  font-size: 15px;
+}
+.headers .headerLeft {
+  color: #343434;
+}
+.headers .headerRight span {
+  margin-right: 18px;
+}
 </style>
