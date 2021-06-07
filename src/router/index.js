@@ -34,6 +34,14 @@ const router = new VueRouter({
             }
         },
         {
+            path: '/search',
+            component: () => import('../pages/home/search'),
+            meta: {
+                footerShow: false,
+                headerShow: false,
+            }
+        },
+        {
             path: '/fenlei',
             component: () => import('../pages/fenlei'),
             meta: {
@@ -71,6 +79,22 @@ const router = new VueRouter({
             meta: {
                 footerShow: false,
                 headerShow: true,
+            }
+        },
+        {
+            path: '/set',
+            component: () => import('../pages/set'),
+            meta: {
+                footerShow: false,
+                headerShow: false,
+            }
+        },
+        {
+            path: '/setAddress',
+            component: () => import('../pages/setAddress'),
+            meta: {
+                footerShow: false,
+                headerShow: false,
             }
         }
     ]
