@@ -32,4 +32,4 @@ export const get = (url, params) => instance.get(url, { params })
 export const post = (url, data) => instance.post(url, data)
 
 //delete请求
-export const deletes = (url, data) => instance.post(url, data)
+export const deletes = (url, data) => instance.delete(url, data)

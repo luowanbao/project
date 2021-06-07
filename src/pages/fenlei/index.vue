@@ -1,15 +1,18 @@
 <template>
   <div class="fenlei">
     <van-nav-bar
+      class="fenlei_top"
       title="分类"
-      left-text="返回"
-      right-text="按钮"
       left-arrow
       :fixed="true"
       :placeholder="true"
       @click-left="onClickLeft"
       @click-right="onClickRight"
-    />
+    >
+      <template #right>
+        <van-icon name="search" size="18" />
+      </template>
+    </van-nav-bar>
 
     <van-sidebar v-model="activeKey" @change="onChange">
       <van-sidebar-item title="手机" />
@@ -150,6 +153,13 @@ export default {
     position: relative;
     /* padding-top: 50px; */
     margin-bottom: 50px;
+  }
+
+  .fenlei_top /deep/ .van-nav-bar  {
+    background: #F2F2F2;
+  }
+  .fenlei_top /deep/ .van-nav-bar .van-icon {
+    color: rgb(168, 159, 159);
   }
 
   .van-sidebar {
