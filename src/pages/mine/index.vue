@@ -78,7 +78,7 @@
     </ul>
     <div class="yanshen"></div>
     <ul class="szlist">
-      <li class="li">
+      <li class="li" @click="set()">
         <span style="color: #818c99" class="iconfont icon-shezhi left"></span
         ><span class="fonts">设置</span
         ><span class="iconfont icon-qianjin right"></span>
@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import { getToken, setToken } from '../../utils/auth';
+import { getToken} from '../../utils/auth';
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
 
@@ -115,13 +115,21 @@ export default {
       if(getToken){
         console.log(getToken);
       }
+    },
+    set(){
+       this.$router.push("/set")
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
-    setToken("token","098765432")
-     
-    
+   let username = localStorage.getItem("username")
+   if(username!=null){
+     this.denglu= `${username}`
+     this.zhuce=""
+   }else{
+     this.denglu="登录"
+     this.zhuce="注册"
+   }
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
