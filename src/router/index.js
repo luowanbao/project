@@ -53,8 +53,8 @@ const router = new VueRouter({
             path: '/cart',
             component: () => import('../pages/cart'),
             meta: {
-                footerShow: true,
-                headerShow: true,
+                footerShow: false,
+                headerShow: false,
             }
         },
         {
