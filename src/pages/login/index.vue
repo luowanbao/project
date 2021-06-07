@@ -10,8 +10,8 @@
         />
       </div>
       <div class="headerRight">
-        <span class="iconfont icon-huiyuanzhongxin"></span>
-        <span class="iconfont icon-shenglvehao"></span>
+        <span class="iconfont icon-anquan"></span>
+        <span class="iconfont icon-doubt"></span>
       </div>
     </div>
     <div class="nav">
@@ -55,11 +55,11 @@
       <i>其他方式登录</i>
     </div>
     <div class="allIcon">
+      <span class="iconfont icon-qq"></span>
+      <span class="iconfont icon-weibo"></span>
+      <span class="iconfont icon-changyonglogo30"></span>
       <span class="iconfont icon-weixin"></span>
-      <span class="iconfont icon-weixin"></span>
-      <span class="iconfont icon-weixin"></span>
-      <span class="iconfont icon-weixin"></span>
-      <span class="iconfont icon-weixin"></span>
+      <span class="iconfont icon-apple"></span>
     </div>
   </div>
 </template>
@@ -91,12 +91,15 @@ export default {
   watch: {},
   //方法集合
   methods: {
+    //路由跳转到注册
     goReg() {
       this.$router.push("/reg");
     },
+    //提交登录
     onSubmit(values) {
       console.log("submit", values);
     },
+    //下拉框
     onSelect(item) {
       // 默认情况下点击选项时不会自动收起
       // 可以通过 close-on-click-action 属性开启自动收起
@@ -134,9 +137,11 @@ export default {
 }
 .headers .headerLeft {
   color: #a4a4a4;
+  margin-left: -14px;
 }
 .headers .headerRight span {
-  margin-right: 18px;
+  margin-right: 24px;
+  font-size: 14px;
 }
 .nav {
   padding-top: 20px;
@@ -189,10 +194,35 @@ h3 {
   padding-top: 10px;
 }
 .allIcon span {
+  width: 35px;
+  height: 35px;
+  line-height: 35px;
+  text-align: center;
+  display: inline-block;
+  border-radius: 35px;
+  background: turquoise;
   font-size: 28px;
   margin-right: 28px;
 }
 .allIcon span:nth-child(5) {
   margin-right: 0;
+  color: #fff;
+  background: #33353b;
+}
+.allIcon span:nth-child(4) {
+  color: #fff;
+  background: #50b674;
+}
+.allIcon span:nth-child(3) {
+  color: #fff;
+  background: #1989fa;
+}
+.allIcon span:nth-child(2) {
+  color: #fff;
+  background: #ea5d5c;
+}
+.allIcon span:nth-child(1) {
+  color: #fff;
+  background: #18acfc;
 }
 </style>
