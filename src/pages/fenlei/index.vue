@@ -31,6 +31,8 @@
         <van-image :src="item.coverImg" />
         <div class="proname">{{ item.name }}</div>
       </van-grid-item>
+
+      <van-pagination prev-text="<" next-text=">" v-model="currentPage" :total-items="24" :items-per-page="5" @change="pagechange" />
     </van-grid>
   </div>
 </template>
@@ -55,6 +57,7 @@ export default {
       },
       categoryProducts: [],
       currenttitle: '手机',
+      currentPage: 1,
     }
   },
   //计算属性 依赖缓存,多对一(即多个影响一个),不支持异步
