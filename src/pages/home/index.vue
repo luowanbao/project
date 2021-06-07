@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home ">
     <!-- header -->
     <header>
       <img
@@ -18,7 +18,7 @@
         sticky
         animated
         swipeable
-        offset-top="47"
+        offset-top="45"
       >
         <van-tab title="推荐">
           <!-- 轮播 -->
@@ -389,15 +389,65 @@
             </li>
           </ul>
         </van-tab>
-        <van-tab title="电视">
+        <van-tab title="电视" class="ds">
           <img
             class="c1"
             src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c0bcf1381f9a43f60b39b58e891f6daa.jpg?f=webp"
             alt=""
           />
+          <div class="goods-wrap">
+            <ul class="goods-list">
+              <li v-for="item in list6" :key="item._id">
+                <img :src="item.coverImg" alt="" />
+                <p>{{ item.name }}</p>
+                <h4>￥{{ item.price }}</h4>
+                <button>立即购买</button>
+              </li>
+            </ul>
+          </div>
+          <!--  -->
+          <div class="list-wrap">
+            <ul class="goods-list2 goods2">
+              <li v-for="item in list7" :key="item._id">
+                <img :src="item.coverImg" alt="" />
+                <p>{{ item.name }}</p>
+                <h4>{{ item.price }}</h4>
+                <button>立即购买</button>
+              </li>
+            </ul>
+          </div>
         </van-tab>
-        <van-tab title="家电">内容 5</van-tab>
-        <van-tab title="笔记本">内容 5</van-tab>
+        <van-tab title="家电" class="jd">
+          <img
+            class="d1"
+            src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/5a56b920bc83820736d2260c58858bf4.jpg?f=webp"
+            alt=""
+          />
+          <img
+            class="d2"
+            src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/206eeb5a11b27d97cec3f2b2c053a083.jpg?f=webp"
+            alt=""
+          />
+          <div class="jd-lists">
+            <ul class="jd-list">
+              <li v-for="item in list8" :key="item._id">
+                <img :src="item.coverImg" alt="" />
+                <p>{{ item.name }}</p>
+                <h4>￥{{ item.price }}</h4>
+              </li>
+            </ul>
+          </div>
+        </van-tab>
+        <van-tab title="笔记本" class="bjb">
+          <img
+            src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/1bc92bd7fdb80c023c6887ae4f419e71.jpg?f=webp"
+            alt=""
+            class="e1"
+          />
+          <ul>
+            <li></li>
+          </ul>
+        </van-tab>
       </van-tabs>
     </div>
   </div>
@@ -420,6 +470,9 @@ export default {
       list3: [],
       list4: [],
       list5: [],
+      list6: [],
+      list7: [],
+      list8: [],
       params: { per: 6, page: 5, product_category: "60bca58f95a4da29d418baab" },
       params2: {
         per: 6,
@@ -440,6 +493,21 @@ export default {
         per: 9,
         page: 1,
         product_category: "60bca58f95a4da29d418baac",
+      },
+      params6: {
+        per: 2,
+        page: 1,
+        product_category: "60bca58f95a4da29d418baae",
+      },
+      params7: {
+        per: 6,
+        page: 1,
+        product_category: "60bca58f95a4da29d418baae",
+      },
+      params8: {
+        per: 9,
+        page: 1,
+        product_category: "60bca58f95a4da29d418baaf",
       },
     };
   },
@@ -476,6 +544,21 @@ export default {
       this.list5 = result.data.products;
       console.log(result);
     },
+    async getlist6() {
+      const result = await reqProducts(this.params6);
+      this.list6 = result.data.products;
+      console.log(result);
+    },
+    async getlist7() {
+      const result = await reqProducts(this.params7);
+      this.list7 = result.data.products;
+      console.log(result);
+    },
+    async getlist8() {
+      const result = await reqProducts(this.params8);
+      this.list8 = result.data.products;
+      console.log(result);
+    },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
@@ -484,6 +567,9 @@ export default {
     this.getlist3();
     this.getlist4();
     this.getlist5();
+    this.getlist6();
+    this.getlist7();
+    this.getlist8();
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
@@ -504,12 +590,12 @@ export default {
 .home {
   overflow: hidden;
 }
+
 /* 推荐 */
 .home header {
   padding: 2px 10px;
   position: relative;
   width: 100%;
-
   position: fixed;
   background: #fff;
   z-index: 100;
@@ -717,6 +803,10 @@ div /deep/.van-grid-item .van-grid-item__content {
   width: 176px;
   height: 176px;
   margin-bottom: 10px;
+  border-radius: 10px 10px 0px 0px;
+}
+.goods-list li {
+  margin-bottom: 10px;
 }
 .goods-list {
   display: flex;
@@ -724,6 +814,7 @@ div /deep/.van-grid-item .van-grid-item__content {
   align-items: center;
   justify-content: space-around;
   overflow: hidden;
+  margin-bottom: 6px;
 }
 .goods-list li p {
   width: 176px;
@@ -731,6 +822,9 @@ div /deep/.van-grid-item .van-grid-item__content {
   font-size: 14px;
   text-align: center;
   margin-bottom: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .goods-list li h4 {
   width: 176px;
@@ -749,13 +843,15 @@ div /deep/.van-grid-item .van-grid-item__content {
   padding: 5px 13px;
   outline: none;
   border: none;
-  margin-left: 43px;
+  margin-left: 50px;
   margin-bottom: 10px;
 }
 .goods-list li {
+  border-radius: 10px;
   widows: 176px;
   background: #fff;
 }
+
 .a7 {
   width: 100%;
   height: 56px;
@@ -797,8 +893,97 @@ div /deep/.van-grid-item .van-grid-item__content {
   color: rgb(245, 75, 75);
   margin-bottom: 7px;
 }
+/* 电视 */
+.ds {
+  background-color: rgb(255, 174, 153);
+}
 .c1 {
   width: 100%;
   height: 62px;
+  border-bottom: solid 1px #fff;
+}
+.goods2 li button {
+  background: rgb(245, 75, 75);
+  border-radius: 5px;
+  font-size: 13px;
+  color: #fff;
+  font-weight: 500;
+  padding: 5px 13px;
+  outline: none;
+  border: none;
+  margin-left: 21px;
+  margin-bottom: 10px;
+}
+
+.goods2 li {
+  width: 115px;
+  background: #fff;
+}
+.goods2 li img {
+  border-radius: 8px 8px 0 0;
+}
+.goods2 li {
+  margin-bottom: 5px;
+  border-radius: 8px;
+}
+/*家电 */
+.d1 {
+  width: 100%;
+  height: 64px;
+}
+.d2 {
+  width: 100%;
+  height: 70px;
+}
+.jd {
+  background-color: rgb(225, 65, 57);
+}
+.jd-list li img {
+  width: 115px;
+  display: block;
+  margin-bottom: 6px;
+  border-radius: 5px 5px 0 0;
+}
+.jd-list li {
+  background: #fff;
+  margin-bottom: 6px;
+  border-radius: 5px;
+}
+.jd-list li p {
+  width: 115px;
+  color: #3c3c3c;
+  font-size: 12px;
+  text-align: center;
+  overflow: hidden; /*超出部分隐藏*/
+  text-overflow: ellipsis; /* 超出部分显示省略号 */
+  white-space: nowrap; /*规定段落中的文本不进行换行 */
+  margin-bottom: 6px;
+}
+.jd-list li h4 {
+  width: 115px;
+  text-align: center;
+  color: rgb(245, 75, 75);
+  font-size: 14px;
+  margin-bottom: 6px;
+}
+.jd-list {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  justify-content: space-around;
+  align-items: center;
+}
+.jd-lists {
+  margin-bottom: 50px;
+}
+/* 笔记本 */
+.e1 {
+  width: 100%;
+  height: 41px;
+  display: block;
+  margin: 6px 0;
+}
+.bjb {
+  background-color: rgb(72, 120, 166);
 }
 </style>
