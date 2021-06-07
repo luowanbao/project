@@ -444,15 +444,44 @@
             alt=""
             class="e1"
           />
-          <ul class="bjbs">
-            <li v-for="item in list9" :key="item._id">
-              <img :src="item.coverImg" alt="" />
-              <p>
-                <span>{{ item.name }}</span>
-                <span>{{ item.price }}</span>
-              </p>
-            </li>
-          </ul>
+          <div class="bjb-lists">
+            <ul class="bjb-list">
+              <li v-for="item in list9" :key="item._id">
+                <img :src="item.coverImg" alt="" />
+
+                <p class="top">
+                  <span class="left">{{ item.name }}</span>
+                  <span class="right">￥{{ item.price }}</span>
+                </p>
+                <p class="bottom"><button>立即购买</button></p>
+              </li>
+            </ul>
+          </div>
+          <!--  -->
+          <img
+            class="e2"
+            src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6a6c6904c72672a67f1ddb6d4938d414.jpg?f=webp"
+            alt=""
+          />
+          <img
+            src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/aeb37b208fc7303d6a6e16b57e4e1942.jpg?f=webp"
+            alt=""
+            class="e2"
+          />
+          <img
+            src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e320df8ff307626d984f1708d3c961f2.jpg?f=webp"
+            alt=""
+            class="e2"
+          />
+          <div class="bjb-list2s">
+            <ul class="bjb-list2">
+              <li v-for="item in list10" :key="item._id">
+                <img :src="item.coverImg" alt="" />
+                <p>{{ item.name }}</p>
+                <h4>{{ item.price }}</h4>
+              </li>
+            </ul>
+          </div>
         </van-tab>
       </van-tabs>
     </div>
@@ -479,6 +508,7 @@ export default {
       list6: [],
       list7: [],
       list8: [],
+      list9: [],
       params: { per: 6, page: 5, product_category: "60bca58f95a4da29d418baab" },
       params2: {
         per: 6,
@@ -531,8 +561,6 @@ export default {
     async getlist() {
       const result = await reqProducts(this.params);
       this.list = result.data.products;
-      console.log(this.list[0].productCategory._id);
-
       console.log(result);
     },
     async getlist2() {
@@ -570,6 +598,11 @@ export default {
       this.list8 = result.data.products;
       console.log(result);
     },
+    async getlist9() {
+      const result = await reqProducts(this.params9);
+      this.list9 = result.data.products;
+      console.log(result);
+    },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
@@ -581,6 +614,7 @@ export default {
     this.getlist6();
     this.getlist7();
     this.getlist8();
+    this.getlist9();
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
@@ -996,5 +1030,69 @@ div /deep/.van-grid-item .van-grid-item__content {
 }
 .bjb {
   background-color: rgb(72, 120, 166);
+}
+
+.bjb-list li img {
+  width: 362px;
+  height: 227px;
+  display: block;
+  margin: 0 auto;
+}
+.bjb-list li .top {
+  width: 349px;
+  display: flex;
+  justify-content: space-between;
+  height: 21px;
+  line-height: 21px;
+  padding: 6px 0;
+  padding: 0 7px;
+  background: #fff;
+  margin: 0 auto;
+}
+.bjb-list li .left {
+  color: rgba(0, 0, 0, 0.87);
+  font-size: 12px;
+}
+.bjb-list li .right {
+  color: #ea625b;
+  font-size: 14px;
+}
+.bjb-list li button {
+  background: rgb(245, 75, 75);
+  border-radius: 5px;
+  font-size: 12px;
+  color: #fff;
+  height: 24px;
+  font-weight: 500;
+  padding: 0 9px;
+  outline: none;
+  border: none;
+  float: right;
+  margin-left: 290px;
+  margin-top: 10px;
+}
+.bjb-list li {
+  margin-top: 6px;
+}
+.bottom {
+  width: 362px !important;
+  text-align: center;
+  background: #fff;
+  height: 40px !important;
+  padding: 6px 0;
+  margin: 0 auto;
+}
+.e2 {
+  width: 100%;
+  height: 41px;
+  margin: 5px 0;
+}
+.bjb-list2 li img {
+  width: 115px;
+}
+.bjb-list2 li p {
+  color: #3c3c3c;
+  font-size: 12px;
+  text-align: center;
 }
 </style>
