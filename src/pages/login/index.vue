@@ -26,8 +26,8 @@
     <h3>小米账号登录</h3>
     <van-form @submit="onSubmit">
       <van-field
-        v-model="username"
-        name="用户名"
+        v-model="userName"
+        name="userName"
         label=""
         placeholder="邮箱/手机号码/小米ID"
         :rules="[{ required: true, message: '请填写用户名' }]"
@@ -35,7 +35,7 @@
       <van-field
         v-model="password"
         type="password"
-        name="密码"
+        name="password"
         label=""
         placeholder="请输入密码"
         :rules="[{ required: true, message: '请填写密码' }]"
@@ -49,7 +49,7 @@
     <div class="content">
       <p>手机号登录</p>
       <p>|</p>
-      <p @click="goReg">立即注册</p>
+      <p @click="goReg" class="atOnce">立即注册</p>
     </div>
     <div class="ii">
       <i>其他方式登录</i>
@@ -68,6 +68,8 @@
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
 import { Toast } from "vant";
+import { reqLogin } from "../../api/user";
+import { setToken } from "../../utils/auth";
 
 export default {
   //import引入的组件需要注册到对象(components)中才能使用
@@ -75,7 +77,7 @@ export default {
   data() {
     //这里存放数据,返回值为一个对象
     return {
-      username: "",
+      userName: "",
       password: "",
       show: false,
       actions: [
@@ -96,8 +98,20 @@ export default {
       this.$router.push("/reg");
     },
     //提交登录
-    onSubmit(values) {
-      console.log("submit", values);
+    async onSubmit(values) {
+      // console.log("submit", values);
+      const result = await reqLogin({ ...values });
+      console.log(result);
+      if (result.data.code == "error") {
+        Toast("用户名密码错误");
+      } else {
+        setToken(result.data.token);
+        localStorage.setItem("username", this.userName);
+        Toast("登录成功");
+        setTimeout(() => {
+          this.$router.push("/");
+        }, 1000);
+      }
     },
     //下拉框
     onSelect(item) {
@@ -224,5 +238,8 @@ h3 {
 .allIcon span:nth-child(1) {
   color: #fff;
   background: #18acfc;
+}
+.atOnce {
+  color: #2792ff;
 }
 </style>
