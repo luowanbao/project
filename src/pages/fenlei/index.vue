@@ -164,12 +164,12 @@ export default {
     },
 
     // 点击格子时触发
-    clickProduct(proid) {
-      console.log(proid);
+    clickProduct(id) {
+      console.log(id);
       this.$router.push({
         path: '/detail',
         query: {
-          proid
+          id
         }
       });
     },
