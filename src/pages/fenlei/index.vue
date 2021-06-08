@@ -33,11 +33,8 @@
     </van-divider>
 
     <!-- 中间商品展示页面 -->
-    <van-grid v-show="productsShow" :border="false" center :column-num="3" :gutter="6" direction="center">
-      <van-grid-item v-for="item in categoryProducts" :key="item._id">
-        <van-image :src="item.coverImg" />
-        <div class="proname">{{ item.name }}</div>
-      </van-grid-item>
+    <van-grid :clickable="true" v-show="productsShow" :border="false" center icon-size="60px" :column-num="3" :gutter="6" direction="center">
+      <van-grid-item v-for="item in categoryProducts"  :icon="item.coverImg" :text="item.name" :key="item._id" @click="clickProduct(item._id)" />
     </van-grid>
 
     <!-- 搜索中... -->
@@ -52,7 +49,6 @@
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
 import { reqAllproducts } from '../../api/fenlei';
-import { Toast } from 'vant';
 import Vue from 'vue';
 
 const eventBus = new Vue();
@@ -154,17 +150,28 @@ export default {
     },
 
     onClickLeft() {
-      Toast('返回');
+      this.$router.push('/home');
     },
 
     onClickRight() {
-      Toast('按钮');
+      this.$router.push('/search');
     },
 
     pagechange(index) {
       console.log(index);
       // this.params.page = index;
       this.reqAllproducts(index);
+    },
+
+    // 点击格子时触发
+    clickProduct(proid) {
+      console.log(proid);
+      this.$router.push({
+        path: '/detail',
+        query: {
+          proid
+        }
+      });
     },
 
   },
