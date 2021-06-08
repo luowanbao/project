@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-05 15:53:18
- * @LastEditTime: 2021-06-08 10:40:07
+ * @LastEditTime: 2021-06-08 21:26:29
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \project\project\src\pages\cart\index.vue
@@ -166,13 +166,13 @@ export default {
       this.$router.push({
         path: this.$store.state.fromPath,
       });
-      // alert("敬请期待！");
     },
     search() {
-      alert("敬请期待！");
+      this.$router.push({
+        path: "/search",
+      });
     },
     goLogin() {
-      alert("敬请期待！");
       this.$router.push({
         path: "/login",
       });
@@ -208,7 +208,6 @@ export default {
       this.$router.push({
         path: "/fenlei",
       });
-      // alert("跳转到商品分类页面");
     },
     async add(product, quantity) {
       console.log(product, quantity);
