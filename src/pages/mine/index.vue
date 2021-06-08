@@ -4,7 +4,7 @@
       <div class="logo">
         <img :src="img" alt="" />
       </div>
-      <div class="font">
+      <div class="font" @click="login()">
         <span>{{ denglu }}</span
         ><span>{{ zhuce }}</span>
       </div>
@@ -110,6 +110,9 @@ export default {
   watch: {},
   //方法集合
   methods: {
+    login(){
+       this.$router.push("/login")
+    },
     // 判断是否登录
     token(){
       if(getToken){
