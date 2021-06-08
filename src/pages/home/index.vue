@@ -28,7 +28,7 @@
         animated
         swipeable
         sticky
-        offset-top="50"
+        offset-top="51"
       >
         <van-tab title="推荐">
           <!-- 轮播 -->
