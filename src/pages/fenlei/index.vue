@@ -1,6 +1,6 @@
 <template>
   <div class="fenlei">
-    <!-- header部分 -->
+    <!-- header部分 --> 
     <transition name="topbar">
       <van-nav-bar
         class="fenlei_top"
