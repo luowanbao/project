@@ -1,5 +1,8 @@
 <template>
   <div id="app">
+     <van-dialog v-model="show" title="退出账号" show-cancel-button @confirm="quxiao" >
+        <img src="https://img0.baidu.com/it/u=1751860894,2478946967&fm=26&fmt=auto&gp=0.jpg" class="img"/>
+      </van-dialog>
     <van-nav-bar
       title="个人中心"
       left-arrow
@@ -54,7 +57,9 @@ export default {
   components: {},
   data() {
     //这里存放数据,返回值为一个对象
-    return {};
+    return {
+      show: false,
+    };
   },
   //计算属性 依赖缓存,多对一(即多个影响一个),不支持异步
   computed: {},
@@ -62,7 +67,11 @@ export default {
   watch: {},
   //方法集合
   methods: {
-    // 跳转到地址管理
+     quxiao(){
+        localStorage.removeItem("token")
+      localStorage.removeItem("username")
+      this.$router.push("/login")
+     },
     adderss(){
       this.$router.push("/setAddress")
     },
@@ -74,9 +83,7 @@ export default {
     },
     // 退出账号，返回到登录页面
     login(){
-      localStorage.removeItem("token")
-      localStorage.removeItem("username")
-      this.$router.push("/login")
+     this.show=true
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
@@ -131,5 +138,8 @@ export default {
   margin-left: 0px;
   position: absolute;
   bottom: 0px;
+}
+.img{
+  width: 320px;
 }
 </style>
