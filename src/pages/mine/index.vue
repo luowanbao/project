@@ -9,17 +9,17 @@
         ><span>{{ zhuce }}</span>
       </div>
     </div>
-    <div class="dingdan">
+    <div class="dingdan" @click="dingdan()">
       <p class="wode">我的订单</p>
       <p class="quanbu">全部订单 <span class="iconfont icon-qianjin"></span></p>
     </div>
     <hr />
     <ul class="list">
-      <li>
+      <li @click="dingdan()">
         <span class="iconfont icon-daifukuan"></span>
         <p>待付款</p>
       </li>
-      <li>
+      <li @click="dingdan()">
         <span class="iconfont icon-daishouhuo1"></span>
         <p>待收货</p>
       </li>
@@ -89,7 +89,7 @@
 </template>
 
 <script>
-import { getToken} from '../../utils/auth';
+import { getToken } from "../../utils/auth";
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
 
@@ -110,31 +110,38 @@ export default {
   watch: {},
   //方法集合
   methods: {
-    login(){
-       if (!getToken("token")) {
-        this.$router.push("/login")
-      }
-       
-    },
-    set(){
-      if (getToken("token")) {
-         console.log(getToken("token"));
-         this.$router.push("/set")
+    dingdan() {
+      if (!getToken("token")) {
+        this.$router.push("/login");
       }else{
-         this.$router.push("/login")
+        this.$router.push("/myOrder");
       }
-    }
+
+    },
+    login() {
+      if (!getToken("token")) {
+        this.$router.push("/login");
+      }
+    },
+    set() {
+      if (getToken("token")) {
+        console.log(getToken("token"));
+        this.$router.push("/set");
+      } else {
+        this.$router.push("/login");
+      }
+    },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
-   let username = localStorage.getItem("username")
-   if(username!=null){
-     this.denglu= `${username}`
-     this.zhuce=""
-   }else{
-     this.denglu="登录"
-     this.zhuce="注册"
-   }
+    let username = localStorage.getItem("username");
+    if (username != null) {
+      this.denglu = `${username}`;
+      this.zhuce = "";
+    } else {
+      this.denglu = "登录";
+      this.zhuce = "注册";
+    }
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
@@ -239,13 +246,13 @@ export default {
   height: 100px;
   background: #f5f5f5;
 }
-.logo{
-   width: 60px;
-   height: 60px;
-   border-radius:50% ;
-   background: #F5B070;
-   float: left;
-   overflow: hidden;
+.logo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background: #f5b070;
+  float: left;
+  overflow: hidden;
 }
 .header img {
   width: 50px;
