@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-05 15:53:18
- * @LastEditTime: 2021-06-07 16:03:30
+ * @LastEditTime: 2021-06-07 22:05:52
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \project\project\src\pages\cart\index.vue
@@ -230,20 +230,18 @@ export default {
         path: "/home",
       });
     },
-    goSettlement() {
+    goSettlement(id) {
       if (this.cartList.filter((item) => item.checked).length > 0) {
-        // console.log(111);
-        // if(this.$store.state.userInfo){
-        // }else{
-        // }
+        this.$router.push({
+          path: "/settlement",
+          query: {
+            id,
+          },
+        });
       } else {
         Toast("请勾选要结算的商品");
       }
     },
-    // change() {
-
-    //   console.log(this.cartList.filter((item) => item.checked));
-    // },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {

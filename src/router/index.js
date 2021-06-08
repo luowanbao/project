@@ -4,8 +4,7 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-    routes: [
-        {
+    routes: [{
             path: '/',
             redirect: '/home'
         },
@@ -60,6 +59,14 @@ const router = new VueRouter({
         {
             path: '/cart',
             component: () => import('../pages/cart'),
+            meta: {
+                footerShow: false,
+                headerShow: false,
+            }
+        },
+        {
+            path: '/settlement',
+            component: () => import('../pages/settlement'),
             meta: {
                 footerShow: false,
                 headerShow: false,
