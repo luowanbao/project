@@ -86,28 +86,6 @@ export default {
     back() {
       this.$router.push("./home");
     },
-<<<<<<< HEAD
-   async search() {
-     if(this.value!=""){
-       console.log(1111);
-          this.falg=true
-     }else{
-       this.falg=false
-     }
-     let {data} = await reqProducts({ per:1000,page:1})
-     let list = data.products
-       console.log(list);
-       this.arr=[]
-        list.forEach(v=>{
-         let x= v.name.includes(this.value)
-        if(x==true){
-          console.log(this.arr);
-            if (this.arr.length < 10) {
-             this.arr.push(v)
-            }
-        }
-        })
-=======
     async search() {
       if (this.value != "") {
         console.log(1111);
@@ -129,7 +107,6 @@ export default {
           }
         }
       });
->>>>>>> 72330c113a09569895d109f62958d0578a36a59b
     },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
@@ -243,35 +220,6 @@ div /deep/.wrapper {
   height: 400px;
   background-color: #fff;
 }
-<<<<<<< HEAD
- .wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-  }
-
-  .block {
-    width: 120px;
-    height: 120px;
-    background-color: #fff;
-  }
-  .red{
-    width: 100%;
-    height: 300px;
-    background: black;
-    z-index:199 !important;
-    opacity: 0.3;
-    position: absolute;
-    bottom: 0px;
-  }
-  .box1{
-    background: black;
-    width: 100%;
-    height: 500px;
-    opacity: 0.3;
-  }
-=======
 .wrapper {
   display: flex;
   align-items: center;
@@ -299,5 +247,4 @@ div /deep/.wrapper {
   height: 500px;
   opacity: 0.3;
 }
->>>>>>> 72330c113a09569895d109f62958d0578a36a59b
 </style>
