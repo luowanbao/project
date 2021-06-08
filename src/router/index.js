@@ -103,6 +103,22 @@ const router = new VueRouter({
                 footerShow: false,
                 headerShow: false,
             }
+        },
+        {
+            path: '/newAddress',
+            component: () => import('../pages/newAddress'),
+            meta: {
+                footerShow: false,
+                headerShow: false,
+            }
+        },
+        {
+            path: '/myOrder',
+            component: () => import('../pages/myOrder'),
+            meta: {
+                footerShow: false,
+                headerShow: false,
+            }
         }
     ]
 })
