@@ -8,13 +8,20 @@
     >
     </van-nav-bar>
     <ul>
-      <li v-for="v in list" :key="v._id" class="li" @click="amend(v._id)">
-        <p class="p">
+      <li v-for="v in list" :key="v._id" class="li">
+        <div class="p">
+          <div class="dizhi">
+            <input
+              type="checkbox"
+              :checked="v.isDefault"
+              @click="moren($event, v._id)"
+            />默认地址
+          </div>
           <span>{{ v.receiver }}</span
           ><span>{{ v.mobile }}</span
           ><span @click.stop="delt(v._id)">删除</span>
-        </p>
-        <div class="box">
+        </div>
+        <div class="box" @click="amend(v._id)">
           <div>
             <p>{{ v.regions }}</p>
             <p>{{ v.address }}</p>
@@ -40,6 +47,7 @@ export default {
     //这里存放数据,返回值为一个对象
     return {
       list: [],
+      flag:"addr",
     };
   },
   //计算属性 依赖缓存,多对一(即多个影响一个),不支持异步
@@ -48,32 +56,61 @@ export default {
   watch: {},
   //方法集合
   methods: {
-    amend(id) {
-      this.$router.push({
-         path: '/newAddress',
-          query: {
-            id: id
+    // 默认地址
+    moren(e, id) {
+      let checked = e.target.checked;
+      console.log(checked, id);
+      if (checked == true) {
+        this.list.forEach((v,i) => {
+          if (v._id == id) {
+            v.isDefault = true;
+            let one = this.list[0]
+            let x = v
+            this.list[i]=one 
+            this.list[0] = x
+          } else {
+            v.isDefault = false;
           }
-      })
-      console.log(1111);
+        });
+      }
+    },
+    amend(id) {
+      if(this.flag=="addr"){
+        console.log("跳转修改");
+        this.$router.push({
+          path: "/newAddress",
+          query: {
+            id: id,
+          },
+        });
+      }else{
+        console.log("跳转car");
+        // this.$router.push({
+        //   path: "/newAddress",
+        //   query: {
+        //     id: id,
+        //   },
+        // });
+      }
+      
     },
     delt(id) {
       Dialog.confirm({
         title: "删除",
         message: "你确定要删除这条地址吗？",
       })
-       .then(()  => {
-         console.log(id),
-          deletApi(id).then((res)=>{
-            if (res.status == 200) {
-            Toast("删除成功");
-            this.list.forEach((v,i)=>{
-              if (v._id==id) {
-                this.list.splice(i,1)
+        .then(() => {
+          console.log(id),
+            deletApi(id).then((res) => {
+              if (res.status == 200) {
+                Toast("删除成功");
+                this.list.forEach((v, i) => {
+                  if (v._id == id) {
+                    this.list.splice(i, 1);
+                  }
+                });
               }
-            })
-          }
-          })
+            });
         })
         .catch(() => {
           console.log("点击取消了");
@@ -93,18 +130,28 @@ export default {
         this.list = res.data.addresses;
         this.list.forEach((v) => {
           v.mobile = v.mobile.replace(/(?<=\d{3})\d{4}(?=\d{4})/, "****");
-        // v.receiver = v.receiver.replace(/(?<=\d{3})\d{4}(?=\d{4})/, "");
-        // 吧code码截取出来
-          let x = v.receiver.slice(0,-6)
-          v.receiver=x
+          // v.receiver = v.receiver.replace(/(?<=\d{3})\d{4}(?=\d{4})/, "");
+          // 吧code码截取出来
+          let x = v.receiver.slice(0, -6);
+          v.receiver = x;
+        });
+        this.list.forEach((v, i) => {
+          if ((i == 0)) {
+            v.isDefault = true;
+          } else {
+            v.isDefault = false;
+          }
         });
       }
-      console.log(res);
     },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
     this.Dzlist();
+    let flag = this.$route.query.flag;
+    if(flag != undefined){
+      this.flag = flag;
+    }
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
@@ -161,13 +208,20 @@ export default {
 }
 .box span:nth-child(2) {
   margin-left: 210px;
-  position: relative;
-  top: 6px;
+  position: absolute;
+  right: 20px;
+  top: 18px;
+  font-size: 24px;
   color: gray;
+  margin-top: 20px;
 }
 .li {
+  margin-top: 10px;
   width: 100%;
   height: 80px;
-  margin-top: 20px;
+  position: relative;
+}
+.dizhi {
+  font-size: 12px;
 }
 </style>
