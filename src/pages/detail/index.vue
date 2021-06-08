@@ -75,10 +75,7 @@
         :style="{ height: '70%' }"
       >
         <div class="selected">
-          <img
-            src="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/cea1ff3517387569b7f59fc2b7d01d30.png"
-            alt=""
-          />
+          <img :src="productObj.coverImg" alt="" />
           <div class="selectedRigth">
             <div class="price">
               ￥<span>{{ productObj.price }}</span>
@@ -131,6 +128,7 @@
           class="trueJoin"
           type="danger"
           color="linear-gradient(to right, #ff7c00, #ff5934)"
+          @click="addCart(productObj._id, value)"
           >加入购物车</van-button
         >
       </van-popup>
@@ -153,6 +151,7 @@
             class="trueJoin"
             type="danger"
             color="linear-gradient(to right, #ff7c00, #ff5934)"
+            @click="goAddress"
             >选择新地址</van-button
           >
         </div>
@@ -160,7 +159,9 @@
     </div>
     <div class="footer">
       <van-tabbar v-model="active" active-color="#000" inactive-color="#000">
-        <van-tabbar-item icon="wap-home-o">首页</van-tabbar-item>
+        <van-tabbar-item icon="wap-home-o" @click="goHome"
+          >首页</van-tabbar-item
+        >
         <van-tabbar-item icon="service-o">客服</van-tabbar-item>
         <van-tabbar-item icon="shopping-cart-o" @click="goCart"
           ><span>购物车</span></van-tabbar-item
@@ -180,6 +181,7 @@
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
 import { reqIdDetail } from "../../api/product";
+import { reqAddCart } from "../../api/cart";
 
 export default {
   //import引入的组件需要注册到对象(components)中才能使用
@@ -205,6 +207,7 @@ export default {
       config6: false,
       config7: false,
       flag: true,
+      productNum: 1,
     };
   },
   //计算属性 依赖缓存,多对一(即多个影响一个),不支持异步
@@ -228,6 +231,10 @@ export default {
     //跳转购物车
     goCart() {
       this.$router.push("/cart");
+    },
+    //跳转首页
+    goHome() {
+      this.$router.push("/home");
     },
     //事件监听
     montorScroll() {
@@ -276,6 +283,21 @@ export default {
         this.config7 = true;
         this.config6 = false;
       }
+    },
+    //添加购物车
+    async addCart(product, quantity) {
+      // console.log(quantity);
+      const result = await reqAddCart(product, quantity);
+      console.log(result);
+    },
+    //拿地址
+    goAddress() {
+      this.$router.push({
+        path: "setAddress",
+        query: {
+          flag: 1,
+        },
+      });
     },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
