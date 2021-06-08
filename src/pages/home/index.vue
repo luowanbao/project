@@ -140,7 +140,7 @@
           </div>
           <!-- 展示商品 -->
           <ul class="zs1">
-            <li v-for="item in list" :key="item._id">
+            <li v-for="item in list" :key="item._id" @click="tz1(item._id)">
               <img :src="item.coverImg" alt="" />
               <p>{{ item.name }}</p>
               <h4>￥{{ item.price }}</h4>
@@ -162,7 +162,7 @@
           </div>
           <!-- zs2 -->
           <ul class="zs1">
-            <li v-for="item in list2" :key="item._id">
+            <li v-for="item in list2" :key="item._id" @click="tz2(item._id)">
               <img :src="item.coverImg" alt="" />
               <p>{{ item.name }}</p>
               <h4>￥{{ item.price }}</h4>
@@ -273,7 +273,7 @@
 
           <!-- goodslist -->
           <ul class="goods-list">
-            <li v-for="item in list3" :key="item._id">
+            <li v-for="item in list3" :key="item._id" @click="tz3(item._id)">
               <img :src="item.coverImg" alt="" />
               <p>{{ item.name }}</p>
               <h4>￥{{ item.price }}</h4>
@@ -286,7 +286,7 @@
             class="a7"
           />
           <ul class="goods-list">
-            <li v-for="item in list4" :key="item._id">
+            <li v-for="item in list4" :key="item._id" @click="tz4(item._id)">
               <img :src="item.coverImg" alt="" />
               <p>{{ item.name }}</p>
               <h4>￥{{ item.price }}</h4>
@@ -392,7 +392,7 @@
           />
           <!-- 商品list -->
           <ul class="goods-list2">
-            <li v-for="item in list5" :key="item._id">
+            <li v-for="item in list5" :key="item._id" @click="tz5(item._id)">
               <img :src="item.coverImg" alt="" />
               <p>{{ item.name }}</p>
               <h4>￥{{ item.price }}</h4>
@@ -407,7 +407,7 @@
           />
           <div class="goods-wrap">
             <ul class="goods-list">
-              <li v-for="item in list6" :key="item._id">
+              <li v-for="item in list6" :key="item._id" @click="tz6(item._id)">
                 <img :src="item.coverImg" alt="" />
                 <p>{{ item.name }}</p>
                 <h4>￥{{ item.price }}</h4>
@@ -418,7 +418,7 @@
           <!--  -->
           <div class="list-wrap">
             <ul class="goods-list2 goods2">
-              <li v-for="item in list7" :key="item._id">
+              <li v-for="item in list7" :key="item._id" @click="tz7(item._id)">
                 <img :src="item.coverImg" alt="" />
                 <p>{{ item.name }}</p>
                 <h4>{{ item.price }}</h4>
@@ -440,7 +440,7 @@
           />
           <div class="jd-lists">
             <ul class="jd-list">
-              <li v-for="item in list8" :key="item._id">
+              <li v-for="item in list8" :key="item._id" @click="tz8(item._id)">
                 <img :src="item.coverImg" alt="" />
                 <p>{{ item.name }}</p>
                 <h4>￥{{ item.price }}</h4>
@@ -456,7 +456,7 @@
           />
           <div class="bjb-lists">
             <ul class="bjb-list">
-              <li v-for="item in list9" :key="item._id">
+              <li v-for="item in list9" :key="item._id" @click="tz9(item._id)">
                 <img :src="item.coverImg" alt="" />
 
                 <p class="top">
@@ -642,6 +642,82 @@ export default {
       this.$router.push("/mine");
     },
     change() {},
+    tz1(id) {
+      this.$router.push({
+        path: "/detail",
+        query: {
+          id: id,
+        },
+      });
+    },
+    tz2(id) {
+      this.$router.push({
+        path: "/detail",
+        query: {
+          id: id,
+        },
+      });
+    },
+    tz3(id) {
+      this.$router.push({
+        path: "/detail",
+        query: {
+          id: id,
+        },
+      });
+    },
+    tz4(id) {
+      this.$router.push({
+        path: "/detail",
+        query: {
+          id: id,
+        },
+      });
+    },
+    tz5(id) {
+      this.$router.push({
+        path: "/detail",
+        query: {
+          id: id,
+        },
+      });
+    },
+    tz6(id) {
+      alert(id);
+      this.$router.push({
+        path: "/detail",
+        query: {
+          id: id,
+        },
+      });
+    },
+    tz7(id) {
+      alert(id);
+      this.$router.push({
+        path: "/detail",
+        query: {
+          id: id,
+        },
+      });
+    },
+    tz8(id) {
+      alert(id);
+      this.$router.push({
+        path: "/detail",
+        query: {
+          id: id,
+        },
+      });
+    },
+    tz9(id) {
+      alert(id);
+      this.$router.push({
+        path: "/detail",
+        query: {
+          id: id,
+        },
+      });
+    },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
