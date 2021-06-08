@@ -34,8 +34,13 @@
         <li>小米手机</li>
         <li>空调</li>
       </ul>
-    </div>
 
+      <van-overlay :show="show" @click="show = false">
+        <div class="wrapper" @click.stop>
+          <div class="block" />
+        </div>
+      </van-overlay>
+    </div>
     <!-- <ul class="list3">
       <li v-for="item in list" :key="item._id">{{ item.name }}</li>
     </ul> -->
@@ -70,7 +75,10 @@ export default {
     back() {
       this.$router.push("./home");
     },
-    search() {},
+    search() {
+      this.getlist();
+      this.$refs;
+    },
     async getlist() {
       const result = await reqProducts({
         per: this.per,
@@ -101,6 +109,8 @@ export default {
   align-items: center;
   justify-content: space-around;
   background: #f2f2f2;
+  z-index: 1000;
+  width: 375px;
 }
 .search header .icon-fanhui {
   font-size: 20px;
@@ -178,12 +188,16 @@ div /deep/.wrapper {
   justify-content: center;
   height: 300px;
   /* position: absolute; */
-  margin-top: 90px;
+  margin-top: 46px;
 }
 
 .block {
   width: 100%;
   height: 400px;
   background-color: #fff;
+}
+.van-overlay {
+  position: absolute;
+  top: 40px;
 }
 </style>
