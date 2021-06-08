@@ -151,6 +151,7 @@
             class="trueJoin"
             type="danger"
             color="linear-gradient(to right, #ff7c00, #ff5934)"
+            @click="goAddress"
             >选择新地址</van-button
           >
         </div>
@@ -158,7 +159,9 @@
     </div>
     <div class="footer">
       <van-tabbar v-model="active" active-color="#000" inactive-color="#000">
-        <van-tabbar-item icon="wap-home-o">首页</van-tabbar-item>
+        <van-tabbar-item icon="wap-home-o" @click="goHome"
+          >首页</van-tabbar-item
+        >
         <van-tabbar-item icon="service-o">客服</van-tabbar-item>
         <van-tabbar-item icon="shopping-cart-o" @click="goCart"
           ><span>购物车</span></van-tabbar-item
@@ -229,6 +232,10 @@ export default {
     goCart() {
       this.$router.push("/cart");
     },
+    //跳转首页
+    goHome() {
+      this.$router.push("/home");
+    },
     //事件监听
     montorScroll() {
       const scrollTop = document.documentElement.scrollTop;
@@ -282,6 +289,15 @@ export default {
       // console.log(quantity);
       const result = await reqAddCart(product, quantity);
       console.log(result);
+    },
+    //拿地址
+    goAddress() {
+      this.$router.push({
+        path: "setAddress",
+        query: {
+          flag: 1,
+        },
+      });
     },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
