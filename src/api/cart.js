@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-05 19:03:21
- * @LastEditTime: 2021-06-08 14:01:10
+ * @LastEditTime: 2021-06-08 17:34:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \project\src\api\cart.js
@@ -27,3 +27,7 @@ export const reqProDetail = (params) => get("/api/v1/products/" + params);
 export const reqProAddress = () => get("/api/v1/addresses");
 // 订单提交
 export const reqAddOrder = (params) => post("/api/v1/orders", params);
+// 根据id获取地址
+export const reqGetAddrById = (id) => get("/api/v1/addresses/" + id);
+// 删除多个购物车记录
+export const reqDelMany = (params) => post("/api/v1/shop_carts/delmany", params);
