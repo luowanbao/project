@@ -1,5 +1,5 @@
 <template>
-  <div class="home">
+  <div class="home" id="home">
     <!-- header -->
     <header>
       <img
@@ -13,6 +13,13 @@
         style="width:100%;height:5px;background:#fff;position:absolute;left:0;top:47px;"
       ></div>
     </header>
+    <!-- 回到顶部 -->
+    <a href="#home"
+      ><img
+        src="https://m.mi.com/static/img/top.451d650ecd.png"
+        alt=""
+        class="huidao"
+    /></a>
     <!-- tab切换 -->
     <div class="wrap">
       <van-tabs
@@ -21,7 +28,7 @@
         animated
         swipeable
         sticky
-        offset-top="50"
+        offset-top="51"
       >
         <van-tab title="推荐">
           <!-- 轮播 -->
@@ -488,7 +495,17 @@
         </van-tab>
       </van-tabs>
       <!-- 下拉菜单 -->
-      <van-icon name="arrow-down" />
+      <!-- <van-icon name="arrow-down" /> -->
+      <!-- <van-dropdown-menu>
+        <van-dropdown-item
+          sticky
+          v-model="value1"
+          :options="option1"
+          @change="change"
+        />
+      </van-dropdown-menu> -->
+      <!-- bu -->
+      <!-- <div class="bu"></div> -->
     </div>
   </div>
 </template>
@@ -514,46 +531,56 @@ export default {
       list7: [],
       list8: [],
       list9: [],
-      params: { per: 6, page: 5, product_category: "60bca58f95a4da29d418baab" },
+      value1: 0,
+      value2: "a",
+      option1: [
+        { text: "推荐", value: 0 },
+        { text: "手机", value: 1 },
+        { text: "智能", value: 2 },
+        { text: "电视", value: 3 },
+        { text: "家电", value: 4 },
+        { text: "笔记本", value: 5 },
+      ],
+      params: { per: 6, page: 5, product_category: "60bb1ae57da3a233e89afa54" },
       params2: {
         per: 6,
         page: 1,
-        product_category: "60bca58f95a4da29d418baae",
+        product_category: "60bb1ae57da3a233e89afa57",
       },
       params3: {
         per: 2,
         page: 1,
-        product_category: "60bca58f95a4da29d418baab",
+        product_category: "60bb1ae57da3a233e89afa54",
       },
       params4: {
         per: 4,
         page: 5,
-        product_category: "60bca58f95a4da29d418baab",
+        product_category: "60bb1ae57da3a233e89afa54",
       },
       params5: {
         per: 9,
         page: 1,
-        product_category: "60bca58f95a4da29d418baac",
+        product_category: "60bb1ae57da3a233e89afa55",
       },
       params6: {
         per: 2,
         page: 1,
-        product_category: "60bca58f95a4da29d418baae",
+        product_category: "60bb1ae57da3a233e89afa57",
       },
       params7: {
         per: 6,
         page: 1,
-        product_category: "60bca58f95a4da29d418baae",
+        product_category: "60bb1ae57da3a233e89afa57",
       },
       params8: {
         per: 9,
         page: 1,
-        product_category: "60bca58f95a4da29d418baaf",
+        product_category: "60bb1ae57da3a233e89afa58",
       },
       params9: {
         per: 2,
-        page: 3,
-        product_category: "60bca58f95a4da29d418baad",
+        page: 5,
+        product_category: "60bb1ae57da3a233e89afa56",
       },
     };
   },
@@ -614,6 +641,7 @@ export default {
     denglu() {
       this.$router.push("/mine");
     },
+    change() {},
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
@@ -657,6 +685,9 @@ export default {
 }
 .van-sticky {
   border-top: 1px solid #fff;
+}
+.van-tabs__wrap {
+  display: flex;
 }
 .tab {
   margin-top: 50px;
@@ -1106,7 +1137,7 @@ div /deep/.van-grid-item .van-grid-item__content {
 }
 /* 下拉菜单 */
 .van-tab__pane {
-  height: calc(100vh - 44px); /* 这里减去了tab的高度，为页面剩余高度 */
+  width: calc(100vh - 44px); /* 这里减去了tab的高度，为页面剩余高度 */
 }
 .van-dropdown-item {
   position: absolute !important;
@@ -1115,5 +1146,43 @@ div /deep/.van-grid-item .van-grid-item__content {
 }
 .home {
   background: #fff;
+}
+div /deep/ .van-dropdown-menu__bar {
+  position: fixed;
+  top: 46px;
+  left: 350px;
+  background: #fff;
+}
+/* div /deep/ .van-tabs__nav {
+  width: 340px;
+} */
+div /deep/ .van-tab {
+  width: 50px;
+  padding: 0 8px;
+}
+div /deep/ .van-tab__text {
+  font-size: 12px;
+}
+div /deep/ .van-dropdown-menu__item {
+  width: 0;
+}
+/* .bu {
+  width: 43px;
+  height: 44px;
+  background: red;
+  position: fixed;
+  top: 50px;
+  left: 340px;
+  z-index: -1;
+} */
+/* 回到顶部 */
+.huidao {
+  display: block;
+  width: 36px;
+  position: fixed;
+  top: 540px;
+  right: 20px;
+  z-index: 100;
+  opacity: 0.6;
 }
 </style>

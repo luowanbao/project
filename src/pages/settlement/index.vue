@@ -1,11 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-07 16:41:33
-<<<<<<< HEAD
- * @LastEditTime: 2021-06-08 09:13:59
-=======
- * @LastEditTime: 2021-06-08 15:53:28
->>>>>>> yangtc
+ * @LastEditTime: 2021-06-08 18:50:46
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \project\project\src\pages\settlement\index.vue
@@ -43,7 +39,7 @@
     <van-contact-card
       type="edit"
       @click="onEdit"
-      :name="address.receiver"
+      :name="name"
       :tel="address.mobile"
       v-if="addrFlag"
     />
@@ -232,7 +228,12 @@
 
 <script>
 import { Dialog } from "vant";
-import { reqProAddress, reqAddOrder } from "../../api/cart";
+import {
+  reqProAddress,
+  reqAddOrder,
+  reqGetAddrById,
+  reqDelMany,
+} from "../../api/cart";
 export default {
   //import引入的组件需要注册到对象(components)中才能使用
   components: {},
@@ -245,6 +246,7 @@ export default {
       list: [],
       address: null,
       addrFlag: false,
+      name: "",
     };
   },
   //计算属性 依赖缓存,多对一(即多个影响一个),不支持异步
@@ -255,7 +257,7 @@ export default {
   methods: {
     onClickLeft() {
       this.$router.push({
-        path: this.$store.state.fromPath,
+        path: "/cart",
       });
     },
     onAdd() {
@@ -294,14 +296,23 @@ export default {
       let res = await reqProAddress();
       console.log(res.data.addresses);
       if (res.data.addresses.length > 0) {
-        console.log(res.data.addresses);
+        console.log(res.data);
         let arr = res.data.addresses;
         let list = arr.find((item) => item.isDefault == true);
         console.log(list);
         this.address = list;
+        this.name = list.receiver.slice(0, -6);
         this.addrFlag = true;
       }
     },
+    async getAddrById(id) {
+      this.addrFlag = true;
+      let res = await reqGetAddrById(id);
+      console.log(res.data);
+      this.name = res.data.receiver.slice(0, -6);
+      this.address = res.data;
+    },
+
     async goPayment() {
       console.log(this.address.receiver);
       let receiver = this.address.receiver;
@@ -331,6 +342,15 @@ export default {
       this.$store.commit("myOrderInfo", myOrderInfo);
       localStorage.setItem("myOrderInfo", JSON.stringify(myOrderInfo));
       if (res.data.code == "success") {
+        // 点击去付款删除购车商品
+        console.log(this.$store.state.listProJs);
+        let ids = [];
+        this.$store.state.listProJs.forEach((item) => {
+          ids.push(item._id);
+        });
+        console.log(ids);
+        let res2 = await reqDelMany({ ids });
+        console.log(res2);
         this.$router.push({
           path: "/waitPay",
         });
@@ -342,7 +362,14 @@ export default {
     console.log(this.$store.state.listProJs);
     this.list = this.$store.state.listProJs;
     // this.getProDetail(id);
-    this.getAddressList();
+    let addrID = this.$route.query.id;
+    if (addrID) {
+      console.log(111);
+      this.getAddrById("60bf2fa360acd41e185229bc");
+    } else {
+      console.log(222);
+      this.getAddressList();
+    }
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
