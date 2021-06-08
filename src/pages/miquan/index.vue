@@ -844,7 +844,7 @@
             <template #title>
               <van-icon name="https://b.yzcdn.cn/vant/icon-demo-1126.png" />
             </template>
-            9999998内容
+            99999998内容
           </van-tab>
         </van-tabs>
         <!-- ------------------------------------  ------------------------------------ -->
