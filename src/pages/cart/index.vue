@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-05 15:53:18
- * @LastEditTime: 2021-06-08 21:26:29
+ * @LastEditTime: 2021-06-08 21:47:54
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \project\project\src\pages\cart\index.vue
@@ -164,7 +164,8 @@ export default {
   methods: {
     goback() {
       this.$router.push({
-        path: this.$store.state.fromPath,
+        // path: this.$router.back(),
+        path: "/home",
       });
     },
     search() {
