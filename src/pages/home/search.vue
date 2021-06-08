@@ -1,7 +1,7 @@
 <template>
   <div class="search">
     <!-- nav -->
-    
+
     <header>
       <span class="iconfont icon-fanhui" @click="back"></span>
       <input
@@ -36,25 +36,14 @@
         <li>小米手机</li>
         <li>空调</li>
       </ul>
-<<<<<<< HEAD
     </div>
-    
+
     <ul class="list3" v-show="falg">
-      <li v-for="item in arr" :key="item._id" @click="xiangqing(item._id)">{{ item.name }}</li>
+      <li v-for="item in arr" :key="item._id" @click="xiangqing(item._id)">
+        {{ item.name }}
+      </li>
     </ul>
     <div class="box1" v-show="falg"></div>
-=======
-
-      <van-overlay :show="show" @click="show = false">
-        <div class="wrapper" @click.stop>
-          <div class="block" />
-        </div>
-      </van-overlay>
-    </div>
-    <!-- <ul class="list3">
-      <li v-for="item in list" :key="item._id">{{ item.name }}</li>
-    </ul> -->
->>>>>>> b8dce857c1e521e50464fb1fb2130c8ca91d3d6d
   </div>
 </template>
 
@@ -74,9 +63,9 @@ export default {
       params: {
         per: 5,
       },
-      falg:false,
+      falg: false,
       show: false,
-      arr:[]
+      arr: [],
     };
   },
   //计算属性 依赖缓存,多对一(即多个影响一个),不支持异步
@@ -86,57 +75,42 @@ export default {
   //方法集合
   methods: {
     // 跳转详情页
-    xiangqing(id){
+    xiangqing(id) {
       this.$router.push({
-          path: "/detail",
-          query: {
-            id: id,
-          },
-        });
+        path: "/detail",
+        query: {
+          id: id,
+        },
+      });
     },
     back() {
       this.$router.push("./home");
     },
-<<<<<<< HEAD
-   async search() {
-     if(this.value!=""){
-       console.log(1111);
-          this.falg=true
-     }else{
-       this.falg=false
-     }
-     let {data} = await reqProducts({ per:1000,page:1})
-     let list = data.products
-       console.log(list);
-       this.arr=[]
-        list.forEach(v=>{
-         let x= v.name.includes(this.value)
-        if(x==true){
+    async search() {
+      if (this.value != "") {
+        console.log(1111);
+        this.falg = true;
+      } else {
+        this.falg = false;
+      }
+      let { data } = await reqProducts({ per: 1000, page: 1 });
+      let list = data.products;
+      console.log(list);
+      this.arr = [];
+      list.forEach((v) => {
+        let x = v.name.includes(this.value);
+        if (x == true) {
           console.log(this.arr);
-           
-            if (this.arr.length < 10) {
-             this.arr.push(v)
-            }
+
+          if (this.arr.length < 10) {
+            this.arr.push(v);
+          }
         }
-        })
-=======
-    search() {
-      this.getlist();
-      this.$refs;
-    },
-    async getlist() {
-      const result = await reqProducts({
-        per: this.per,
       });
-      console.log(result);
-      this.list = result.data.products;
->>>>>>> b8dce857c1e521e50464fb1fb2130c8ca91d3d6d
     },
-    
   },
   //生命周期 - 创建完成（可以访问当前this实例）
-  created() {
-  },
+  created() {},
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
   beforeCreate() {}, //生命周期 - 创建之前
@@ -149,8 +123,9 @@ export default {
 };
 </script>
 <style scoped>
-.search{
-overflow:scroll;overflow-y:hidden; 
+.search {
+  overflow: scroll;
+  overflow-y: hidden;
 }
 .search header {
   height: 41px;
@@ -245,38 +220,31 @@ div /deep/.wrapper {
   height: 400px;
   background-color: #fff;
 }
-<<<<<<< HEAD
- .wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100%;
-  }
-
-  .block {
-    width: 120px;
-    height: 120px;
-    background-color: #fff;
-  }
-  .red{
-    width: 100%;
-    height: 300px;
-    background: black;
-    z-index:199 !important;
-    opacity: 0.3;
-    position: absolute;
-    bottom: 0px;
-  }
-  .box1{
-    background: black;
-    width: 100%;
-    height: 500px;
-    opacity: 0.3;
-  }
-=======
-.van-overlay {
-  position: absolute;
-  top: 40px;
+.wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
->>>>>>> b8dce857c1e521e50464fb1fb2130c8ca91d3d6d
+
+.block {
+  width: 120px;
+  height: 120px;
+  background-color: #fff;
+}
+.red {
+  width: 100%;
+  height: 300px;
+  background: black;
+  z-index: 199 !important;
+  opacity: 0.3;
+  position: absolute;
+  bottom: 0px;
+}
+.box1 {
+  background: black;
+  width: 100%;
+  height: 500px;
+  opacity: 0.3;
+}
 </style>
