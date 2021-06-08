@@ -36,25 +36,12 @@
         <li>小米手机</li>
         <li>空调</li>
       </ul>
-<<<<<<< HEAD
     </div>
     
     <ul class="list3" v-show="falg">
       <li v-for="item in arr" :key="item._id" @click="xiangqing(item._id)">{{ item.name }}</li>
     </ul>
     <div class="box1" v-show="falg"></div>
-=======
-
-      <van-overlay :show="show" @click="show = false">
-        <div class="wrapper" @click.stop>
-          <div class="block" />
-        </div>
-      </van-overlay>
-    </div>
-    <!-- <ul class="list3">
-      <li v-for="item in list" :key="item._id">{{ item.name }}</li>
-    </ul> -->
->>>>>>> b8dce857c1e521e50464fb1fb2130c8ca91d3d6d
   </div>
 </template>
 
@@ -97,7 +84,6 @@ export default {
     back() {
       this.$router.push("./home");
     },
-<<<<<<< HEAD
    async search() {
      if(this.value!=""){
        console.log(1111);
@@ -113,24 +99,11 @@ export default {
          let x= v.name.includes(this.value)
         if(x==true){
           console.log(this.arr);
-           
             if (this.arr.length < 10) {
              this.arr.push(v)
             }
         }
         })
-=======
-    search() {
-      this.getlist();
-      this.$refs;
-    },
-    async getlist() {
-      const result = await reqProducts({
-        per: this.per,
-      });
-      console.log(result);
-      this.list = result.data.products;
->>>>>>> b8dce857c1e521e50464fb1fb2130c8ca91d3d6d
     },
     
   },
@@ -245,7 +218,6 @@ div /deep/.wrapper {
   height: 400px;
   background-color: #fff;
 }
-<<<<<<< HEAD
  .wrapper {
     display: flex;
     align-items: center;
@@ -273,10 +245,4 @@ div /deep/.wrapper {
     height: 500px;
     opacity: 0.3;
   }
-=======
-.van-overlay {
-  position: absolute;
-  top: 40px;
-}
->>>>>>> b8dce857c1e521e50464fb1fb2130c8ca91d3d6d
 </style>
