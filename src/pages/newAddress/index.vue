@@ -36,9 +36,10 @@ export default {
       areaList,
       searchResult: [],
       addressInfo: {
-        name: "狗蛋",
-        tel: "123456789",
-        addressDetail: "莲花街",
+        name: "",
+        tel: "",
+        addressDetail: "",
+        areaCode:"",
         isDefault: true,
       },
     };
@@ -54,37 +55,44 @@ export default {
     },
     async onSave(content) {
       // 获取表单信息
+      console.log(content);
       let params = {
-        receiver: `${content.name}`,
+        receiver: `${content.name}${content.areaCode}`,
         mobile: `${content.tel}`,
         regions: `${content.province}-${content.city}-${content.county}`,
         address: `${content.addressDetail}`,
-        idDefault: `${content.isDefault}`,
+        isDefault: content.isDefault,
       };
+      console.log(params);
       // 如果没有id发送创建请求
       if (this.$route.query.id == undefined) {
+        console.log(params);
         let res = await newDzApi(params);
         if (res.status == 200) {
           Toast("创建成功");
           // this.$router.push("/setAddress")
           console.log(res);
         }
-      } else {//否则发送修改请求
+      } else {
+        //否则发送修改请求
         // 没有请求头这时候要修改
-        console.log( this.$route.query.id);
-        let res = await putApi(this.$route.query.id, { params });
+        let res = await putApi(this.$route.query.id, params );
         console.log(res);
       }
     },
-    // onDelete() {
-    //   Toast('delete');
-    // },
+    onDelete() {
+      Toast('delete');
+    },
     async onedd(id) {
       let { data } = await oneddApi(id);
-      console.log(data);
+      // 从名字吧code截取出来
+      let code = data.receiver
+      let y = code.substr(-6,6)
+      this.addressInfo.areaCode = y;
       this.addressInfo.name = data.receiver;
       this.addressInfo.tel = data.mobile;
       this.addressInfo.addressDetail = data.address;
+     
     },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
@@ -93,7 +101,7 @@ export default {
   mounted() {
     // alert(this.$route.query.id);
     if (this.$route.query.id != undefined) {
-      console.log(1111);
+      // console.log(1111);
       this.onedd(this.$route.query.id);
     }
   },

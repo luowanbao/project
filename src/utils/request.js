@@ -36,4 +36,4 @@ export const deletes = (url, data) => instance.delete(url, data)
 
 // put请求
 
-export const put = (url, data)=>instance.post(url, data)
+export const put = (url, params)=>instance.put(url,  params )
