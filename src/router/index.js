@@ -4,8 +4,7 @@ import VueRouter from 'vue-router';
 Vue.use(VueRouter);
 
 const router = new VueRouter({
-    routes: [
-        {
+    routes: [{
             path: '/',
             redirect: '/home'
         },
@@ -66,6 +65,14 @@ const router = new VueRouter({
             }
         },
         {
+            path: '/settlement',
+            component: () => import('../pages/settlement'),
+            meta: {
+                footerShow: false,
+                headerShow: false,
+            }
+        },
+        {
             path: '/mine',
             component: () => import('../pages/mine'),
             meta: {
@@ -92,6 +99,22 @@ const router = new VueRouter({
         {
             path: '/setAddress',
             component: () => import('../pages/setAddress'),
+            meta: {
+                footerShow: false,
+                headerShow: false,
+            }
+        },
+        {
+            path: '/newAddress',
+            component: () => import('../pages/newAddress'),
+            meta: {
+                footerShow: false,
+                headerShow: false,
+            }
+        },
+        {
+            path: '/myOrder',
+            component: () => import('../pages/myOrder'),
             meta: {
                 footerShow: false,
                 headerShow: false,
