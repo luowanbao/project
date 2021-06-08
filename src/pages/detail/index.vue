@@ -151,6 +151,7 @@
             class="trueJoin"
             type="danger"
             color="linear-gradient(to right, #ff7c00, #ff5934)"
+            @click="goAddress"
             >选择新地址</van-button
           >
         </div>
@@ -158,7 +159,9 @@
     </div>
     <div class="footer">
       <van-tabbar v-model="active" active-color="#000" inactive-color="#000">
-        <van-tabbar-item icon="wap-home-o">首页</van-tabbar-item>
+        <van-tabbar-item icon="wap-home-o" @click="goHome"
+          >首页</van-tabbar-item
+        >
         <van-tabbar-item icon="service-o">客服</van-tabbar-item>
         <van-tabbar-item icon="shopping-cart-o" @click="goCart"
           ><span>购物车</span></van-tabbar-item
@@ -179,6 +182,7 @@
 //例如：import 《组件名称》 from '《组件路径》';
 import { reqIdDetail } from "../../api/product";
 import { reqAddCart } from "../../api/cart";
+import { Toast } from "vant";
 
 export default {
   //import引入的组件需要注册到对象(components)中才能使用
@@ -228,6 +232,10 @@ export default {
     //跳转购物车
     goCart() {
       this.$router.push("/cart");
+    },
+    //跳转首页
+    goHome() {
+      this.$router.push("/home");
     },
     //事件监听
     montorScroll() {
@@ -280,8 +288,21 @@ export default {
     //添加购物车
     async addCart(product, quantity) {
       // console.log(quantity);
-      const result = await reqAddCart(product, quantity);
+      const result = await reqAddCart({ product, quantity });
       console.log(result);
+      if (result.data.code == "success") {
+        Toast("添加成功");
+        this.show = false;
+      }
+    },
+    //拿地址
+    goAddress() {
+      this.$router.push({
+        path: "setAddress",
+        query: {
+          flag: 1,
+        },
+      });
     },
   },
   //生命周期 - 创建完成（可以访问当前this实例）

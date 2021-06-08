@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-07 16:41:33
- * @LastEditTime: 2021-06-08 18:50:46
+ * @LastEditTime: 2021-06-08 21:27:35
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \project\project\src\pages\settlement\index.vue
@@ -364,10 +364,8 @@ export default {
     // this.getProDetail(id);
     let addrID = this.$route.query.id;
     if (addrID) {
-      console.log(111);
-      this.getAddrById("60bf2fa360acd41e185229bc");
+      this.getAddrById(addrID);
     } else {
-      console.log(222);
       this.getAddressList();
     }
   },
