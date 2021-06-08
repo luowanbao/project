@@ -89,11 +89,17 @@ export default {
     async Dzlist() {
       let res = await DzlistApi();
       if (res.status == 200) {
+        console.log(res.data.addresses);
         this.list = res.data.addresses;
         this.list.forEach((v) => {
           v.mobile = v.mobile.replace(/(?<=\d{3})\d{4}(?=\d{4})/, "****");
+        // v.receiver = v.receiver.replace(/(?<=\d{3})\d{4}(?=\d{4})/, "");
+        // 吧code码截取出来
+          let x = v.receiver.slice(0,-6)
+          v.receiver=x
         });
       }
+      console.log(res);
     },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
@@ -136,6 +142,7 @@ export default {
   justify-content: space-between;
   padding: 0 20px;
 }
+
 .p span:nth-child(1) {
   color: #ff6600;
 }
