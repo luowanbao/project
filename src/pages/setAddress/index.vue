@@ -85,12 +85,12 @@ export default {
         });
       }else{
         console.log("跳转car");
-        // this.$router.push({
-        //   path: "/newAddress",
-        //   query: {
-        //     id: id,
-        //   },
-        // });
+        this.$router.push({
+          path: "/settlement",
+          query: {
+            id: id,
+          },
+        });
       }
       
     },

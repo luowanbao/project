@@ -86,8 +86,9 @@ export default {
       let { data } = await oneddApi(id);
       // 从名字吧code截取出来
       let code = data.receiver
-      let y = code.substr(-6,6)
       let name = code.slice(0,-6)
+      
+       let y = code.substr(-6,6)
       this.addressInfo.areaCode = y;
       this.addressInfo.name = name;
       this.addressInfo.tel = data.mobile;
