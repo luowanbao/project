@@ -1,6 +1,7 @@
 <template>
   <div class="search">
     <!-- nav -->
+    
     <header>
       <span class="iconfont icon-fanhui" @click="back"></span>
       <input
@@ -13,6 +14,7 @@
       <span class="iconfont icon-iconfront-"></span>
     </header>
     <!--  content-->
+    <!-- 遮罩层 -->
     <div class="content">
       <h4>搜索发现</h4>
       <img
@@ -34,6 +36,14 @@
         <li>小米手机</li>
         <li>空调</li>
       </ul>
+<<<<<<< HEAD
+    </div>
+    
+    <ul class="list3" v-show="falg">
+      <li v-for="item in arr" :key="item._id" @click="xiangqing(item._id)">{{ item.name }}</li>
+    </ul>
+    <div class="box1" v-show="falg"></div>
+=======
 
       <van-overlay :show="show" @click="show = false">
         <div class="wrapper" @click.stop>
@@ -44,6 +54,7 @@
     <!-- <ul class="list3">
       <li v-for="item in list" :key="item._id">{{ item.name }}</li>
     </ul> -->
+>>>>>>> b8dce857c1e521e50464fb1fb2130c8ca91d3d6d
   </div>
 </template>
 
@@ -63,7 +74,9 @@ export default {
       params: {
         per: 5,
       },
+      falg:false,
       show: false,
+      arr:[]
     };
   },
   //计算属性 依赖缓存,多对一(即多个影响一个),不支持异步
@@ -72,9 +85,41 @@ export default {
   watch: {},
   //方法集合
   methods: {
+    // 跳转详情页
+    xiangqing(id){
+      this.$router.push({
+          path: "/detail",
+          query: {
+            id: id,
+          },
+        });
+    },
     back() {
       this.$router.push("./home");
     },
+<<<<<<< HEAD
+   async search() {
+     if(this.value!=""){
+       console.log(1111);
+          this.falg=true
+     }else{
+       this.falg=false
+     }
+     let {data} = await reqProducts({ per:1000,page:1})
+     let list = data.products
+       console.log(list);
+       this.arr=[]
+        list.forEach(v=>{
+         let x= v.name.includes(this.value)
+        if(x==true){
+          console.log(this.arr);
+           
+            if (this.arr.length < 10) {
+             this.arr.push(v)
+            }
+        }
+        })
+=======
     search() {
       this.getlist();
       this.$refs;
@@ -85,11 +130,12 @@ export default {
       });
       console.log(result);
       this.list = result.data.products;
+>>>>>>> b8dce857c1e521e50464fb1fb2130c8ca91d3d6d
     },
+    
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
-    this.getlist();
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
@@ -103,6 +149,9 @@ export default {
 };
 </script>
 <style scoped>
+.search{
+overflow:scroll;overflow-y:hidden; 
+}
 .search header {
   height: 41px;
   display: flex;
@@ -172,14 +221,14 @@ div /deep/ .van-tag--danger {
 }
 .list3 li {
   margin-bottom: 10px;
-  width: 341px;
+  width: 100%;
   height: 50px;
   margin: 0 auto;
   line-height: 50px;
   color: #333;
   font-size: 14px;
   border-bottom: 1px solid gray;
-  margin-left: 18px;
+
   background: #fff;
 }
 div /deep/.wrapper {
@@ -196,8 +245,38 @@ div /deep/.wrapper {
   height: 400px;
   background-color: #fff;
 }
+<<<<<<< HEAD
+ .wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .block {
+    width: 120px;
+    height: 120px;
+    background-color: #fff;
+  }
+  .red{
+    width: 100%;
+    height: 300px;
+    background: black;
+    z-index:199 !important;
+    opacity: 0.3;
+    position: absolute;
+    bottom: 0px;
+  }
+  .box1{
+    background: black;
+    width: 100%;
+    height: 500px;
+    opacity: 0.3;
+  }
+=======
 .van-overlay {
   position: absolute;
   top: 40px;
 }
+>>>>>>> b8dce857c1e521e50464fb1fb2130c8ca91d3d6d
 </style>
