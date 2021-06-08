@@ -74,7 +74,6 @@ export default {
           console.log(res);
         }
       } else {
-        //否则发送修改请求
         // 没有请求头这时候要修改
         let res = await putApi(this.$route.query.id, params );
         console.log(res);
@@ -88,8 +87,9 @@ export default {
       // 从名字吧code截取出来
       let code = data.receiver
       let y = code.substr(-6,6)
+      let name = code.slice(0,-6)
       this.addressInfo.areaCode = y;
-      this.addressInfo.name = data.receiver;
+      this.addressInfo.name = name;
       this.addressInfo.tel = data.mobile;
       this.addressInfo.addressDetail = data.address;
      
