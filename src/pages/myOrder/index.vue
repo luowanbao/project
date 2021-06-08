@@ -18,16 +18,28 @@
       </van-nav-bar>
     </transition>
 
-    <!-- 切换栏 -->
-    <van-tabs v-model="activeName" :border="true" animated>
+    
+
+    <!-- 切换栏 全部 -->
+    <van-tabs v-model="activeName" :border="true" animated @click="changetabbar">
+
       <van-tab title="全部" name="allOrder">
+        <!-- 空状态展示 -->
+        <van-empty
+          v-show="emptyImgShow"
+          class="custom-image"
+          image="https://img01.yzcdn.cn/vant/custom-empty-image.png"
+          description="您的订单空空如也"
+        />
+
         <!-- 一个个的订单 -->
         <van-card
+          v-show="allOrderShow"
           v-for="item in orders"
           :key="item._id"
           num="1"
           :price="item.price"
-          title="小米100"
+          title="小米100测试机"
           thumb="https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1617008568.53329550.jpg"
         >
           <template #tags>
@@ -41,15 +53,15 @@
         </van-card>
 
         <!-- 底部合计 -->
-        <div class="van-ellipsis">
+        <div class="van-ellipsis" v-show="allOrderShow">
           <span>{{ ordercreatedAt | dateFormat('yyyy-mm-dd h:m:s') }}</span>
           <span>共{{ orderNum }}件商品</span>
           <span>应付金额：{{ shouldpay }}</span>
         </div>
-        <div class="van-hairline--top"></div>
+        <div class="van-hairline--top" v-show="allOrderShow"></div>
 
-        <van-button type="warning">立即付款</van-button>
-        <van-button class="cancleorder" type="default">取消订单</van-button>
+        <van-button type="warning" v-show="allOrderShow">立即付款</van-button>
+        <van-button class="cancleorder" type="default" v-show="allOrderShow">取消订单</van-button>
 
         <div class="recommend-top-img">
           <img src="@/assets/img/cnxh.jpg" alt="" />
@@ -64,14 +76,25 @@
           </ul>
         </div>
       </van-tab>
+
+      <!-- 待付款 -->
       <van-tab title="待付款" name="toBePaid">
+        <!-- 空状态展示 -->
+        <van-empty
+          v-show="daifukuanShow"
+          class="custom-image"
+          image="https://img01.yzcdn.cn/vant/custom-empty-image.png"
+          description="您的待付款订单空空如也"
+        />
+
         <!-- 一个个的订单 -->
         <van-card
+          v-show="daifukuanOrderShow"
           v-for="item in orders"
           :key="item._id"
           num="1"
           :price="item.price"
-          title="小米100"
+          title="小米100测试机"
           thumb="https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1617008568.53329550.jpg"
         >
           <template #tags>
@@ -85,17 +108,41 @@
         </van-card>
 
         <!-- 底部合计 -->
-        <div class="van-ellipsis">
+        <div class="van-ellipsis" v-show="allOrderShow">
           <span>{{ ordercreatedAt | dateFormat('yyyy-mm-dd h:m:s') }}</span>
           <span>共{{ orderNum }}件商品</span>
           <span>应付金额：{{ shouldpay }}</span>
         </div>
         <div class="van-hairline--top"></div>
 
-        <van-button type="warning">立即付款</van-button>
-        <van-button class="cancleorder" type="default">取消订单</van-button>
+        <van-button type="warning" v-show="allOrderShow">立即付款</van-button>
+        <van-button class="cancleorder" type="default" v-show="allOrderShow">取消订单</van-button>
+
+        <div class="recommend-top-img">
+          <img src="@/assets/img/cnxh.jpg" alt="" />
+        </div>
+        <div class="cnxh-list">
+          <ul>
+            <li v-for="item in proList" :key="item._id" @click="detail(item._id)">
+              <img :src="item.coverImg" alt="" />
+              <span class="desc">{{ item.name }}</span>
+              <span class="price">{{ item.price }}元</span>
+            </li>
+          </ul>
+        </div>
       </van-tab>
-      <van-tab title="待收货" name="toBeReceived">待收货</van-tab>
+
+      <!-- 待收货 -->
+      <van-tab title="待收货" name="toBeReceived">
+        <!-- 空状态展示 -->
+        <van-empty
+          v-show="daishouhuoShow"
+          class="custom-image"
+          image="https://img01.yzcdn.cn/vant/custom-empty-image.png"
+          description="您的待收货订单空空如也"
+        />
+      </van-tab>
+
     </van-tabs>
   </div>
 </template>
@@ -129,6 +176,11 @@ export default {
   data() {
     //这里存放数据,返回值为一个对象
     return {
+      emptyImgShow: true,
+      allOrderShow: false,
+      daifukuanShow: true,
+      daifukuanOrderShow: false,
+      daishouhuoShow: true,
       topbarShow: true,
       activeName: 'allOrder',
       orders: [],
@@ -160,11 +212,28 @@ export default {
       const result = await reqallOrders();
       console.log(result);
       this.orders = result.data.orders;
-      this.ordercreatedAt = result.data.orders[0].createdAt;
-      this.orderNum = result.data.orders.length;
-      this.shouldpay = result.data.orders.reduce((sum, cur) => {
-        return sum += cur.price;
-      }, 0);
+
+      if (result.data.orders.length != 0) {
+        this.allOrderShow = true;
+        this.emptyImgShow = false;
+      
+        this.ordercreatedAt = result.data.orders[0].createdAt;
+        this.orderNum = result.data.orders.length;
+        this.shouldpay = result.data.orders.reduce((sum, cur) => {
+          return sum += cur.price;
+        }, 0);
+      }
+    },
+
+    // 获取所有未支付的订单详情
+    async getNoPayOrders() {
+      const result = await reqallOrders();
+      this.orders = result.data.orders.filter(v => v.isPayed == false);
+
+      if (this.orders.length != 0) {
+        this.daifukuanShow = false;
+        this.daifukuanOrderShow = true;
+      }
     },
 
     onSubmit() {
@@ -186,6 +255,19 @@ export default {
         },
       });
     },
+
+    // 切换标签时会触发
+    changetabbar(name, title) {
+      console.log(name, title);
+      if (name == "allOrder") {
+        this.getOrders();
+      }
+
+      if (name == "toBePaid") {
+        this.getNoPayOrders();
+      }
+    },
+
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
@@ -207,6 +289,12 @@ export default {
 <style scoped>
   .myOrder {
     padding-top: 45px;
+  }
+
+  /* 空状态图片样式 */
+  .custom-image .van-empty__image {
+    width: 90px;
+    height: 90px;
   }
 
   /* topbar样式 */
