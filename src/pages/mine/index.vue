@@ -4,7 +4,7 @@
       <div class="logo">
         <img :src="img" alt="" />
       </div>
-      <div class="font">
+      <div class="font" @click="login()">
         <span>{{ denglu }}</span
         ><span>{{ zhuce }}</span>
       </div>
@@ -110,14 +110,19 @@ export default {
   watch: {},
   //方法集合
   methods: {
-    // 判断是否登录
-    token(){
-      if(getToken){
-        console.log(getToken);
+    login(){
+       if (!getToken("token")) {
+        this.$router.push("/login")
       }
+       
     },
     set(){
-       this.$router.push("/set")
+      if (getToken("token")) {
+         console.log(getToken("token"));
+         this.$router.push("/set")
+      }else{
+         this.$router.push("/login")
+      }
     }
   },
   //生命周期 - 创建完成（可以访问当前this实例）
@@ -132,9 +137,7 @@ export default {
    }
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
-  mounted() {
-     this.token()
-  },
+  mounted() {},
   beforeCreate() {}, //生命周期 - 创建之前
   beforeMount() {}, //生命周期 - 挂载之前
   beforeUpdate() {}, //生命周期 - 更新之前
