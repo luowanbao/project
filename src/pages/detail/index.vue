@@ -182,6 +182,7 @@
 //例如：import 《组件名称》 from '《组件路径》';
 import { reqIdDetail } from "../../api/product";
 import { reqAddCart } from "../../api/cart";
+import { Toast } from "vant";
 
 export default {
   //import引入的组件需要注册到对象(components)中才能使用
@@ -287,8 +288,12 @@ export default {
     //添加购物车
     async addCart(product, quantity) {
       // console.log(quantity);
-      const result = await reqAddCart(product, quantity);
+      const result = await reqAddCart({ product, quantity });
       console.log(result);
+      if (result.data.code == "success") {
+        Toast("添加成功");
+        this.show = false;
+      }
     },
     //拿地址
     goAddress() {
