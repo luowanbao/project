@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2021-06-05 19:03:21
- * @LastEditTime: 2021-06-07 16:00:55
+ * @LastEditTime: 2021-06-08 15:49:19
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \project\project\src\store\index.js
@@ -15,7 +15,11 @@ const store = new Vuex.Store({
     state: {
         fromPath: "",
         toPath: "",
-        userInfo: null,
+        userInfo: null, //请求订单新增接口参数
+        listProJs: [],
+        sumPriceProJs: 0,
+        countProJs: 0,
+        myOrderInfo: null,
     },
     mutations: {
         fromPath(state, fromPath) {
@@ -27,6 +31,18 @@ const store = new Vuex.Store({
         userInfo(state, userInfo) {
             state.userInfo = userInfo;
         },
+        listProJs(state, listProJs) {
+            state.listProJs = listProJs;
+        },
+        sumPriceProJs(state, sumPriceProJs) {
+            state.sumPriceProJs = sumPriceProJs;
+        },
+        countProJs(state, countProJs) {
+            state.countProJs = countProJs;
+        },
+        myOrderInfo(state, myOrderInfo) {
+            state.myOrderInfo = myOrderInfo;
+        }
 
     },
     actions: {},
@@ -39,6 +55,18 @@ const store = new Vuex.Store({
         },
         userInfo(state) {
             return state.userInfo;
+        },
+        listProJs(state) {
+            return state.listProJs;
+        },
+        sumPriceProJs(state) {
+            return state.sumPriceProJs;
+        },
+        countProJs(state) {
+            return state.countProJs;
+        },
+        myOrderInfo(state) {
+            return state.myOrderInfo;
         },
     },
     modules: {}

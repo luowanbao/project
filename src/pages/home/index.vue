@@ -1,24 +1,34 @@
 <template>
-  <div class="home ">
+  <div class="home" id="home">
     <!-- header -->
     <header>
       <img
         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAEwAAAAyCAYAAAD2vz2aAAAAAXNSR0IArs4c6QAAAERlWElmTU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAATKADAAQAAAABAAAAMgAAAABQW5lOAAADMUlEQVRoBe2bPYgTQRTH/5NcFBU9ULQQtREUET3FQsXGyuLQRhDBxtqP4xBUsDsbQYRDPRGsBNsT4RoRVBA7PxpBQe1EPT/AIqJ3553J879JhjRmfS+3I9lkHmxmNvPftzO/vJmd3Z0A0UwEnBzHCwi2mo7KTjxHV3NwmK2lSR74we0Tt8naJkwdPqLAeo7hjXOsbUYmp7EEU3hLj6tVLgsYdXIsuwqoTjo/UZnwHnMbJ8AJN4bv83Enw1jHn+qd2ofDw4Ja3BnCfv68B1DFLVQwKSdwQU5h+f+sWt6ANdkIu1MV5/ALr+Uk9jYLwubyC8xzEawkuPsciw/7r0Km+QeW0BH08fOmDGEgJKzEd3cAS1oiWITfhCa8JAS07gFWh7QdQzgYkFcXRZinVMGwz4ZIuy3CwA65h1dN3US0DaLJYKk3h58cXnehhM/6g1KU0/TmsKy2VbCGyo3MD3A8GmS+P+XI1kXCXlPlXA240VrUfokNGG9Z3FW8bP90fz3Sw3/uS2UEC/AV+7l/mfDW+u/VqWA3tUGAdWSXdCOYdddxB0uxhQ1/oAblhQ47fTbrtCOB+Ua6iyijiKPcL/vvVKlgfajpRUcDS+C4a7WnFedVoJqiEs7wDiCAdTywRptvm9s+FeZKmQtgHM/e8+r5ygTN9TCwBqgnJmAIA8w6rVDVmU8ONlG4TSWuP2W9xyhKnrS2NocPnGJYbJVFrNUGAcaTj7Nxm7WV4FTzLLWXUvVCYDZbaJPr1KHGsMW60zdUAo3+m8kneD8SwEIBy76qwmerFhPeLQSw/AAr1N4sWRD0eIS52is4PTDp9S6pR+WVRZ/JMs1Pl7S22nGqG8C6F1gAWInLCMwINgKLwIwEjPIYYRGYkYBRHiMsAjMSMMpjhEVgRgJGeYywCMxIwCiPERaBGQkY5THCIjAjAaM8RlgEZiRglMcIi8CMBIzyGGFtAJtRHyPQarW6+qk1fp363L450z6TktrepgMzfVzHvI//DNuQ4rRZJHjW3EnNHeFLrh2pCl/o+P+NEib8bst0BZ5yofAhlv97dbVwHXUJd1v6ahS4K/jCJeqDVOuWqRfx6A+5CpLYo3H97gAAAABJRU5ErkJggg=="
         alt=""
       />
-      <input type="text" placeholder="搜索商品名称" />
+      <input type="text" placeholder="搜索商品名称" @click="tiaozhuan" />
       <van-icon name="search" class="ico1" size="23" />
-      <van-icon name="contact" class="ico2" size="23" />
+      <van-icon name="contact" class="ico2" size="23" @click="denglu" />
+      <div
+        style="width:100%;height:5px;background:#fff;position:absolute;left:0;top:47px;"
+      ></div>
     </header>
+    <!-- 回到顶部 -->
+    <a href="#home"
+      ><img
+        src="https://m.mi.com/static/img/top.451d650ecd.png"
+        alt=""
+        class="huidao"
+    /></a>
     <!-- tab切换 -->
     <div class="wrap">
       <van-tabs
         v-model="active"
         class="tab"
-        sticky
         animated
         swipeable
-        offset-top="45"
+        sticky
+        offset-top="51"
       >
         <van-tab title="推荐">
           <!-- 轮播 -->
@@ -473,7 +483,7 @@
             alt=""
             class="e2"
           />
-            <!-- <div class="bjb-list2s">
+          <!-- <div class="bjb-list2s">
               <ul class="bjb-list2">
                 <li v-for="item in list10" :key="item._id">
                   <img :src="item.coverImg" alt="" />
@@ -484,6 +494,18 @@
             </div> -->
         </van-tab>
       </van-tabs>
+      <!-- 下拉菜单 -->
+      <!-- <van-icon name="arrow-down" /> -->
+      <!-- <van-dropdown-menu>
+        <van-dropdown-item
+          sticky
+          v-model="value1"
+          :options="option1"
+          @change="change"
+        />
+      </van-dropdown-menu> -->
+      <!-- bu -->
+      <!-- <div class="bu"></div> -->
     </div>
   </div>
 </template>
@@ -509,46 +531,56 @@ export default {
       list7: [],
       list8: [],
       list9: [],
-      params: { per: 6, page: 5, product_category: "60bca58f95a4da29d418baab" },
+      value1: 0,
+      value2: "a",
+      option1: [
+        { text: "推荐", value: 0 },
+        { text: "手机", value: 1 },
+        { text: "智能", value: 2 },
+        { text: "电视", value: 3 },
+        { text: "家电", value: 4 },
+        { text: "笔记本", value: 5 },
+      ],
+      params: { per: 6, page: 5, product_category: "60bb1ae57da3a233e89afa54" },
       params2: {
         per: 6,
         page: 1,
-        product_category: "60bca58f95a4da29d418baae",
+        product_category: "60bb1ae57da3a233e89afa57",
       },
       params3: {
         per: 2,
         page: 1,
-        product_category: "60bca58f95a4da29d418baab",
+        product_category: "60bb1ae57da3a233e89afa54",
       },
       params4: {
         per: 4,
         page: 5,
-        product_category: "60bca58f95a4da29d418baab",
+        product_category: "60bb1ae57da3a233e89afa54",
       },
       params5: {
         per: 9,
         page: 1,
-        product_category: "60bca58f95a4da29d418baac",
+        product_category: "60bb1ae57da3a233e89afa55",
       },
       params6: {
         per: 2,
         page: 1,
-        product_category: "60bca58f95a4da29d418baae",
+        product_category: "60bb1ae57da3a233e89afa57",
       },
       params7: {
         per: 6,
         page: 1,
-        product_category: "60bca58f95a4da29d418baae",
+        product_category: "60bb1ae57da3a233e89afa57",
       },
       params8: {
         per: 9,
         page: 1,
-        product_category: "60bca58f95a4da29d418baaf",
+        product_category: "60bb1ae57da3a233e89afa58",
       },
       params9: {
         per: 2,
-        page: 1,
-        product_category: "60bca58f95a4da29d418baad",
+        page: 5,
+        product_category: "60bb1ae57da3a233e89afa56",
       },
     };
   },
@@ -603,6 +635,13 @@ export default {
       this.list9 = result.data.products;
       console.log(result);
     },
+    tiaozhuan() {
+      this.$router.push("/search");
+    },
+    denglu() {
+      this.$router.push("/mine");
+    },
+    change() {},
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
@@ -632,22 +671,23 @@ export default {
   margin: 0;
   padding: 0;
 }
-.home {
-  overflow: hidden;
-}
 
 /* 推荐 */
 .home header {
-  padding: 2px 10px;
-  position: relative;
+  padding: 2.5px 10px;
   width: 100%;
   position: fixed;
+  top: 0px;
   background: #fff;
   z-index: 100;
-  /* margin-bottom: 70px; */
+  height: 48px;
+  box-sizing: border-box;
 }
-.wrap {
-  height: 100%;
+.van-sticky {
+  border-top: 1px solid #fff;
+}
+.van-tabs__wrap {
+  display: flex;
 }
 .tab {
   margin-top: 50px;
@@ -684,9 +724,9 @@ export default {
   text-indent: 2em;
   margin-left: 18px;
 }
-.van-tabs {
+/* .van-tabs {
   width: 100%;
-}
+} */
 .van-tab__pane {
   width: 100%;
 }
@@ -1094,5 +1134,55 @@ div /deep/.van-grid-item .van-grid-item__content {
   color: #3c3c3c;
   font-size: 12px;
   text-align: center;
+}
+/* 下拉菜单 */
+.van-tab__pane {
+  width: calc(100vh - 44px); /* 这里减去了tab的高度，为页面剩余高度 */
+}
+.van-dropdown-item {
+  position: absolute !important;
+  height: 100vh;
+  top: 100% !important;
+}
+.home {
+  background: #fff;
+}
+div /deep/ .van-dropdown-menu__bar {
+  position: fixed;
+  top: 46px;
+  left: 350px;
+  background: #fff;
+}
+/* div /deep/ .van-tabs__nav {
+  width: 340px;
+} */
+div /deep/ .van-tab {
+  width: 50px;
+  padding: 0 8px;
+}
+div /deep/ .van-tab__text {
+  font-size: 12px;
+}
+div /deep/ .van-dropdown-menu__item {
+  width: 0;
+}
+/* .bu {
+  width: 43px;
+  height: 44px;
+  background: red;
+  position: fixed;
+  top: 50px;
+  left: 340px;
+  z-index: -1;
+} */
+/* 回到顶部 */
+.huidao {
+  display: block;
+  width: 36px;
+  position: fixed;
+  top: 540px;
+  right: 20px;
+  z-index: 100;
+  opacity: 0.6;
 }
 </style>

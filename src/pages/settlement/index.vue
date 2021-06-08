@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-07 16:41:33
- * @LastEditTime: 2021-06-08 09:13:59
+ * @LastEditTime: 2021-06-08 18:50:46
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \project\project\src\pages\settlement\index.vue
@@ -34,7 +34,15 @@
       </van-swipe>
     </van-notice-bar>
 
-    <van-contact-card type="add" @click="onAdd" />
+    <van-contact-card type="add" @click="onAdd" v-if="!addrFlag" />
+
+    <van-contact-card
+      type="edit"
+      @click="onEdit"
+      :name="name"
+      :tel="address.mobile"
+      v-if="addrFlag"
+    />
 
     <div class="ui-line"></div>
 
@@ -190,25 +198,42 @@
     </div>
     <div class="ui-line"></div>
     <ul class="product">
-      <li>
-        <img src="" alt="" />
-        <span></span>
-        <strong></strong>
+      <li v-for="item in this.$store.state.listProJs" :key="item._id">
+        <img :src="item.product.coverImg" alt="" />
+        <span>{{ item.product.name }}</span>
+        <strong style="font-weight: 600">{{ item.product.price }}</strong>
       </li>
     </ul>
     <div class="ui-line"></div>
     <div class="price">
-      <p><strong>商品价格：</strong><span>9999</span></p>
+      <p>
+        <strong>商品价格：</strong
+        ><span>{{ this.$store.state.sumPriceProJs }}</span>
+      </p>
       <p><strong>配送费用：</strong><span>0</span></p>
     </div>
-    <div class="ui-line"></div>
+    <div class="ui-line" style="margin-bottom: 50px"></div>
+    <div class="footer">
+      <div class="left">
+        共<span>{{ this.$store.state.countProJs }}</span
+        >件 <span>合计：</span
+        ><strong style="font-weight: 600">{{
+          this.$store.state.sumPriceProJs
+        }}</strong>
+      </div>
+      <div class="right" @click="goPayment">去付款</div>
+    </div>
   </div>
 </template>
 
 <script>
-import { Toast } from "vant";
 import { Dialog } from "vant";
-// import { reqProDetail } from "../../api/cart";
+import {
+  reqProAddress,
+  reqAddOrder,
+  reqGetAddrById,
+  reqDelMany,
+} from "../../api/cart";
 export default {
   //import引入的组件需要注册到对象(components)中才能使用
   components: {},
@@ -218,6 +243,10 @@ export default {
       activeNames: ["1"],
       show: false,
       value1: "176****5018",
+      list: [],
+      address: null,
+      addrFlag: false,
+      name: "",
     };
   },
   //计算属性 依赖缓存,多对一(即多个影响一个),不支持异步
@@ -228,12 +257,27 @@ export default {
   methods: {
     onClickLeft() {
       this.$router.push({
-        path: this.$store.state.fromPath,
+        path: "/cart",
       });
     },
     onAdd() {
-      Toast("新增");
+      this.$router.push({
+        path: "/newAddress",
+      });
     },
+    onEdit() {
+      this.$router.push({
+        path: "setAddress",
+        query: {
+          flag: true,
+        },
+      });
+    },
+    // else {
+    //     this.$router.push({
+    //       path: "/newAddress",
+    //     });
+    //   }
     toggle(index) {
       this.$refs.checkboxes[index].toggle();
     },
@@ -248,15 +292,84 @@ export default {
         // on close
       });
     },
-    // async getProDetail(id) {
-    //   let res = await reqProDetail(id);
-    //   console.log(res);
-    // },
+    async getAddressList() {
+      let res = await reqProAddress();
+      console.log(res.data.addresses);
+      if (res.data.addresses.length > 0) {
+        console.log(res.data);
+        let arr = res.data.addresses;
+        let list = arr.find((item) => item.isDefault == true);
+        console.log(list);
+        this.address = list;
+        this.name = list.receiver.slice(0, -6);
+        this.addrFlag = true;
+      }
+    },
+    async getAddrById(id) {
+      this.addrFlag = true;
+      let res = await reqGetAddrById(id);
+      console.log(res.data);
+      this.name = res.data.receiver.slice(0, -6);
+      this.address = res.data;
+    },
+
+    async goPayment() {
+      console.log(this.address.receiver);
+      let receiver = this.address.receiver;
+      let regions = this.address.regions;
+      let address = this.address.address;
+      console.log(receiver, regions, address);
+      console.log(this.list);
+
+      let orderDetails = [];
+      this.list.forEach((item) => {
+        let obj = {
+          quantity: item.quantity,
+          product: item.product._id,
+          price: item.product.price,
+        };
+        orderDetails.push(obj);
+      });
+      console.log(orderDetails);
+      let info = { receiver, regions, address, orderDetails };
+      localStorage.setItem("userInfo", JSON.stringify(info));
+      this.$store.commit("userInfo", info);
+      console.log(info);
+      // 调用接口 插入订单库
+      let res = await reqAddOrder(info);
+      console.log(res.data.info);
+      let myOrderInfo = res.data.info;
+      this.$store.commit("myOrderInfo", myOrderInfo);
+      localStorage.setItem("myOrderInfo", JSON.stringify(myOrderInfo));
+      if (res.data.code == "success") {
+        // 点击去付款删除购车商品
+        console.log(this.$store.state.listProJs);
+        let ids = [];
+        this.$store.state.listProJs.forEach((item) => {
+          ids.push(item._id);
+        });
+        console.log(ids);
+        let res2 = await reqDelMany({ ids });
+        console.log(res2);
+        this.$router.push({
+          path: "/waitPay",
+        });
+      }
+    },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
-    // let id = this.$route.query.id;
+    console.log(this.$store.state.listProJs);
+    this.list = this.$store.state.listProJs;
     // this.getProDetail(id);
+    let addrID = this.$route.query.id;
+    if (addrID) {
+      console.log(111);
+      this.getAddrById("60bf2fa360acd41e185229bc");
+    } else {
+      console.log(222);
+      this.getAddressList();
+    }
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
@@ -477,9 +590,37 @@ export default {
   width: 58px;
 }
 .settlement .product {
-  height: 56px;
+  /* height: 56px; */
   background: #fff;
 }
+.settlement .product li {
+  height: 56px;
+  width: 330px;
+  margin-left: 20px;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.settlement .product li img {
+  width: 41px;
+  height: 41px;
+  margin-right: 20px;
+}
+
+.settlement .product li span {
+  margin-right: 20px;
+}
+.settlement .product li span,
+.settlement .product li strong {
+  color: #3c3c3c;
+  font-size: 12px;
+}
+/* .settlement .product li img {
+  width: 41px;
+  height: 41px;
+} */
+
 .settlement .price {
   height: 56px;
   background: #fff;
@@ -498,5 +639,29 @@ export default {
   line-height: 25px;
   color: #3c3c3c;
   font-size: 12px;
+}
+.settlement .footer {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  bottom: 0;
+  background: #fff;
+}
+.settlement .footer .left {
+  line-height: 50px;
+  text-align: center;
+  height: 50px;
+  width: 50%;
+  color: #ff4d14;
+}
+.settlement .footer .right {
+  line-height: 50px;
+  text-align: center;
+  height: 50px;
+  width: 50%;
+  color: #fff;
+  background: #ff4d14;
 }
 </style>

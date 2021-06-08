@@ -73,6 +73,14 @@ const router = new VueRouter({
             }
         },
         {
+            path: '/waitPay',
+            component: () => import('../pages/waitPay'),
+            meta: {
+                footerShow: false,
+                headerShow: false,
+            }
+        },
+        {
             path: '/mine',
             component: () => import('../pages/mine'),
             meta: {

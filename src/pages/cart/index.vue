@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-05 15:53:18
- * @LastEditTime: 2021-06-07 22:05:52
+ * @LastEditTime: 2021-06-08 10:40:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \project\project\src\pages\cart\index.vue
@@ -230,13 +230,29 @@ export default {
         path: "/home",
       });
     },
-    goSettlement(id) {
+    goSettlement() {
+      console.log(this.sumPrice);
       if (this.cartList.filter((item) => item.checked).length > 0) {
+        this.$store.commit(
+          "listProJs",
+          this.cartList.filter((item) => item.checked)
+        );
+        this.$store.commit("sumPriceProJs", this.sumPrice);
+        this.$store.commit(
+          "countProJs",
+          this.cartList.filter((item) => item.checked).length
+        );
+        localStorage.setItem(
+          "listProJs",
+          JSON.stringify(this.cartList.filter((item) => item.checked))
+        );
+        localStorage.setItem("sumPriceProJs", JSON.stringify(this.sumPrice));
+        localStorage.setItem(
+          "countProJs",
+          JSON.stringify(this.cartList.filter((item) => item.checked).length)
+        );
         this.$router.push({
           path: "/settlement",
-          query: {
-            id,
-          },
         });
       } else {
         Toast("请勾选要结算的商品");
