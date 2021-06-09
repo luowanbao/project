@@ -9,17 +9,17 @@
         ><span>{{ zhuce }}</span>
       </div>
     </div>
-    <div class="dingdan" @click="dingdan()">
+    <div class="dingdan" @click="allorderclick">
       <p class="wode">我的订单</p>
       <p class="quanbu">全部订单 <span class="iconfont icon-qianjin"></span></p>
     </div>
     <hr />
     <ul class="list">
-      <li @click="dingdan()">
+      <li @click="daifukuanclick">
         <span class="iconfont icon-daifukuan"></span>
         <p>待付款</p>
       </li>
-      <li @click="dingdan()">
+      <li @click="daishouhuoclick">
         <span class="iconfont icon-daishouhuo1"></span>
         <p>待收货</p>
       </li>
@@ -110,13 +110,29 @@ export default {
   watch: {},
   //方法集合
   methods: {
-    dingdan() {
-      if (!getToken("token")) {
-        this.$router.push("/login");
-      }else{
-        this.$router.push("/myOrder");
-      }
-
+      daishouhuoclick() {
+      this.$router.push({
+        path: '/myOrder',
+        query: {
+          activeName: 'toBeReceived',
+        }
+      });
+    },
+   allorderclick() {
+      this.$router.push({
+        path: '/myOrder',
+        query: {
+          activeName: 'allOrder',
+        }
+      });
+    },
+    daifukuanclick() {
+      this.$router.push({
+        path: '/myOrder',
+        query: {
+          activeName: 'toBePaid',
+        }
+      });
     },
     login() {
       if (!getToken("token")) {
