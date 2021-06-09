@@ -3,7 +3,13 @@
     <div class="header">
       <div id="icon" :class="scrollB ? 'scrollL' : 'scrollR'">
         <span class="iconfont icon-fanhui" @click="goBack"></span>
-        <span class="iconfont icon-fenxiang1"></span>
+        <span class="iconfont icon-fenxiang1" @click="showShare = true"></span>
+        <van-share-sheet
+          v-model="showShare"
+          title="立即分享给好友"
+          :options="options"
+          @select="onSelect"
+        />
       </div>
       <div id="middle" :class="scrollB ? 'scrollB' : 'scrollN'">
         <van-tabs v-model="active">
@@ -57,7 +63,7 @@
           src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/049ec9bcc093365914620c46965bf9ab.png"
           alt=""
         />
-        <p>入选【小米手机热销榜】</p>
+        <p>入选【小米商品热销榜】</p>
       </div>
       <div class="rankRight">
         <span class="iconfont icon-qianjin"></span>
@@ -209,6 +215,15 @@ export default {
       config7: false,
       flag: true,
       productNum: 1,
+
+      showShare: false,
+      options: [
+        { name: "微信", icon: "wechat" },
+        { name: "微博", icon: "weibo" },
+        { name: "复制链接", icon: "link" },
+        { name: "分享海报", icon: "poster" },
+        { name: "二维码", icon: "qrcode" },
+      ],
     };
   },
   //计算属性 依赖缓存,多对一(即多个影响一个),不支持异步
@@ -303,6 +318,11 @@ export default {
           flag: 1,
         },
       });
+    },
+    //分享面板
+    onSelect(option) {
+      Toast(option.name);
+      this.showShare = false;
     },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
