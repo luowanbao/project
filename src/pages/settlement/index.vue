@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-07 16:41:33
- * @LastEditTime: 2021-06-09 10:00:25
+ * @LastEditTime: 2021-06-09 14:20:15
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \project\project\src\pages\settlement\index.vue
@@ -357,8 +357,12 @@ export default {
     this.list = this.$store.state.listProJs;
     // this.getProDetail(id);
     let addrID = this.$route.query.id;
+    let detailAddrId = this.$route.query.detailAddrId; //详情页面传过来的地址id
+    console.log(detailAddrId);
     if (addrID) {
       this.getAddrById(addrID);
+    } else if (detailAddrId) {
+      this.getAddrById(detailAddrId);
     } else {
       this.getAddressList();
     }

@@ -149,6 +149,7 @@
           <span class="iconfont icon-dingwei"
             >明天14:00前付款，预计后天送达</span
           >
+          <div class="dtdzxx">{{ dzxx.regions }}<span>有现货</span></div>
         </van-cell>
         <van-popup
           v-model="show2"
@@ -168,6 +169,16 @@
             >
           </div>
         </van-popup>
+      </div>
+      <div class="safe">
+        <div class="safeLeft">
+          <span class="iconfont icon-linedesign-06">小米自营</span>
+          <span class="iconfont icon-linedesign-06">小米发货</span>
+          <span class="iconfont icon-linedesign-06">7天无理由退货</span>
+        </div>
+        <div class="safeRight">
+          <span class="iconfont icon-qianjin"></span>
+        </div>
       </div>
       <div class="footer">
         <van-tabbar v-model="active" active-color="#000" inactive-color="#000">
@@ -194,7 +205,7 @@
 //这里可以导入其他文件（比如：组件，工具js，第三方插件js，json文件，图片文件等等）
 //例如：import 《组件名称》 from '《组件路径》';
 import { reqIdDetail } from "../../api/product";
-import { reqAddCart } from "../../api/cart";
+import { reqAddCart, reqGetAddrById } from "../../api/cart";
 import { Toast } from "vant";
 
 export default {
@@ -231,6 +242,10 @@ export default {
         { name: "分享海报", icon: "poster" },
         { name: "二维码", icon: "qrcode" },
       ],
+
+      dzid: "",
+      dzxx: {},
+      detailAddrId: "",
     };
   },
   //计算属性 依赖缓存,多对一(即多个影响一个),不支持异步
@@ -310,10 +325,18 @@ export default {
     //添加购物车
     async addCart(product, quantity) {
       // console.log(quantity);
-      const result = await reqAddCart({ product, quantity });
-      console.log(result);
-      if (result.data.code == "success") {
-        Toast("添加成功");
+      if (Object.keys(this.dzxx).length) {
+        const result = await reqAddCart({ product, quantity });
+        console.log(result);
+        if (result.data.code == "success") {
+          Toast("添加成功");
+          this.show = false;
+          console.log(this.detailAddrId);
+          this.$store.commit("detailAddrId", this.detailAddrId);
+          localStorage.setItem("detailAddrId", this.detailAddrId);
+        }
+      } else {
+        Toast("请选择收货地址");
         this.show = false;
       }
     },
@@ -332,11 +355,27 @@ export default {
       Toast(option.name);
       this.showShare = false;
     },
+    //通过id获取商品地址
+    async getAddress(id) {
+      const result = await reqGetAddrById(id);
+      // console.log(result);
+      this.dzxx = result.data;
+    },
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
+    //获取到商品id
     this.id = this.$route.query.id;
+    //获取到地址id
+    this.dzid = this.$route.query.dzId;
+    this.detailAddrId = this.$route.query.dzId;
+    // console.log(this.dzid);
+    //调用通过id获取商品详情方法
     this.getDetail(this.id);
+    //调用通过id获取地址方法
+    if (this.dzid != null) {
+      this.getAddress(this.dzid);
+    }
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
@@ -701,14 +740,6 @@ export default {
   left: 0;
 }
 
-/* .van-cell__value--alone span {
-  display: inline-block;
-  width: 250px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-} */
-
 .config {
   background: #fff3eb;
   border: 1px solid #ff5934;
@@ -737,5 +768,31 @@ export default {
   float: right;
   margin-right: 30px;
   font-weight: 600;
+}
+
+.dtdzxx {
+  width: 200px;
+  margin-left: 44px;
+}
+.dtdzxx span {
+  color: #ff5934;
+}
+
+.safe {
+  margin: 10px 0px 20px 14px;
+  background: #fcfcfc;
+  display: flex;
+  justify-content: space-between;
+  height: 40px;
+  line-height: 40px;
+}
+.safe .safeLeft span {
+  color: #bfbdbf;
+  font-size: 13px;
+  margin-right: 15px;
+}
+.safe .safeRight {
+  padding-right: 16px;
+  color: #bfbdbf;
 }
 </style>
