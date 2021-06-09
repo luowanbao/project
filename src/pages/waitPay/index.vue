@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-08 14:18:46
- * @LastEditTime: 2021-06-08 15:07:40
+ * @LastEditTime: 2021-06-09 10:07:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \project\src\pages\waitPay\index.vue
@@ -20,7 +20,7 @@
           </div>
           <div>
             <span class="txt1">付款总额：</span
-            ><span class="sumPrice">{{ order.price }}</span>
+            ><span class="sumPrice">￥{{ price }}</span>
           </div>
         </div>
       </div>
@@ -44,7 +44,8 @@ export default {
   data() {
     //这里存放数据,返回值为一个对象
     return {
-      order: null,
+      order: {},
+      price: 0,
     };
   },
   //计算属性 依赖缓存,多对一(即多个影响一个),不支持异步
@@ -72,6 +73,7 @@ export default {
     let myOrderInfo = this.$store.state.myOrderInfo;
     console.log(myOrderInfo.order);
     this.order = myOrderInfo.order;
+    this.price = parseFloat(myOrderInfo.order.price) / 100;
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
