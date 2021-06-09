@@ -1,184 +1,191 @@
 <template>
   <div class="details">
-    <div class="header">
-      <div id="icon" :class="scrollB ? 'scrollL' : 'scrollR'">
-        <span class="iconfont icon-fanhui" @click="goBack"></span>
-        <span class="iconfont icon-fenxiang1" @click="showShare = true"></span>
-        <van-share-sheet
-          v-model="showShare"
-          title="立即分享给好友"
-          :options="options"
-          @select="onSelect"
-        />
-      </div>
-      <div id="middle" :class="scrollB ? 'scrollB' : 'scrollN'">
-        <van-tabs v-model="active">
-          <van-tab title="商品"></van-tab>
-          <van-tab title="评价"></van-tab>
-          <van-tab title="详情"></van-tab>
-          <van-tab title="推荐"></van-tab>
-        </van-tabs>
-      </div>
-    </div>
-    <img class="bigImg" :src="productObj.coverImg" alt="" />
-    <div class="products">
-      <p class="price">
-        <span>￥</span><i>{{ productObj.price }}</i>
-      </p>
-      <div class="events">
-        <div class="eventsLeft">预计得600米金</div>
-        <div class="eventsRight">
-          更多
-          <span class="iconfont icon-qianjin"></span>
+    <div class="inner">
+      <div class="header">
+        <div id="icon" :class="scrollB ? 'scrollL' : 'scrollR'">
+          <span class="iconfont icon-fanhui" @click="goBack"></span>
+          <span
+            class="iconfont icon-fenxiang1"
+            @click="showShare = true"
+          ></span>
+          <van-share-sheet
+            v-model="showShare"
+            title="立即分享给好友"
+            :options="options"
+            @select="onSelect"
+          />
+        </div>
+        <div id="middle" :class="scrollB ? 'scrollB' : 'scrollN'">
+          <van-tabs v-model="active">
+            <van-tab title="商品"></van-tab>
+            <van-tab title="评价"></van-tab>
+            <van-tab title="详情"></van-tab>
+            <van-tab title="推荐"></van-tab>
+          </van-tabs>
         </div>
       </div>
-      <div class="update">
-        <div class="updateLeft">
+      <img class="bigImg" :src="productObj.coverImg" alt="" />
+      <div class="products">
+        <p class="price">
+          <span>￥</span><i>{{ productObj.price }}</i>
+        </p>
+        <div class="events">
+          <div class="eventsLeft">预计得600米金</div>
+          <div class="eventsRight">
+            更多
+            <span class="iconfont icon-qianjin"></span>
+          </div>
+        </div>
+        <div class="update">
+          <div class="updateLeft">
+            <img
+              src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/84d5f1a65f4223e8fe1b076e93876441.png"
+              alt=""
+            />
+            <p>来这里发现属于你的新品</p>
+          </div>
+          <div class="updateRight">
+            <span class="iconfont icon-qianjin"></span>
+          </div>
+        </div>
+        <div class="hr"></div>
+        <div class="title">
+          <h2>{{ productObj.name }}</h2>
+          <i
+            >「享24期分期免息，低至8.3元/天；买赠价值169元真无线耳机；+1元得小米定制T恤；+1元得生生不息果冻包」</i
+          >
+          <div class="dis">
+            高中生认证立减100元
+            <span class="iconfont icon-qianjin"></span>
+          </div>
+        </div>
+        <div class="hr"></div>
+      </div>
+      <div class="ranking">
+        <div class="rankLeft">
           <img
-            src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/84d5f1a65f4223e8fe1b076e93876441.png"
+            src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/049ec9bcc093365914620c46965bf9ab.png"
             alt=""
           />
-          <p>来这里发现属于你的新品</p>
+          <p>入选【小米商品热销榜】</p>
         </div>
-        <div class="updateRight">
+        <div class="rankRight">
           <span class="iconfont icon-qianjin"></span>
         </div>
       </div>
-      <div class="hr"></div>
-      <div class="title">
-        <h2>{{ productObj.name }}</h2>
-        <i
-          >「享24期分期免息，低至8.3元/天；买赠价值169元真无线耳机；+1元得小米定制T恤；+1元得生生不息果冻包」</i
+      <div class="option">
+        <van-cell is-link @click="showPopup">
+          已选
+          <div class="van-ellipsis">{{ productObj.name }}</div>
+        </van-cell>
+        <van-popup
+          v-model="show"
+          round
+          position="bottom"
+          :style="{ height: '70%' }"
         >
-        <div class="dis">
-          高中生认证立减100元
-          <span class="iconfont icon-qianjin"></span>
-        </div>
-      </div>
-      <div class="hr"></div>
-    </div>
-    <div class="ranking">
-      <div class="rankLeft">
-        <img
-          src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/049ec9bcc093365914620c46965bf9ab.png"
-          alt=""
-        />
-        <p>入选【小米商品热销榜】</p>
-      </div>
-      <div class="rankRight">
-        <span class="iconfont icon-qianjin"></span>
-      </div>
-    </div>
-    <div class="option">
-      <van-cell is-link @click="showPopup">
-        已选
-        <div class="van-ellipsis">{{ productObj.name }}</div>
-      </van-cell>
-      <van-popup
-        v-model="show"
-        round
-        position="bottom"
-        :style="{ height: '70%' }"
-      >
-        <div class="selected">
-          <img :src="productObj.coverImg" alt="" />
-          <div class="selectedRigth">
-            <div class="price">
-              ￥<span>{{ productObj.price }}</span>
-            </div>
-            <h2>{{ productObj.name }}</h2>
-          </div>
-        </div>
-        <div class="rele" v-show="flag">
-          <div class="release">
-            <p>版本</p>
-            <div @click="change1(1)" :class="config1 ? 'config' : 'configF'">
-              8GB+256GB
-            </div>
-            <div @click="change1(2)" :class="config2 ? 'config' : 'configF'">
-              12GB+256GB
-            </div>
-            <div @click="change1(3)" :class="config3 ? 'config' : 'configF'">
-              12GB+512GB
+          <div class="selected">
+            <img :src="productObj.coverImg" alt="" />
+            <div class="selectedRigth">
+              <div class="price">
+                ￥<span>{{ productObj.price }}</span>
+              </div>
+              <h2>{{ productObj.name }}</h2>
             </div>
           </div>
-          <div class="release2">
-            <p>颜色</p>
-            <div @click="change2(1)" :class="config4 ? 'config' : 'configF'">
-              陶瓷黑
+          <div class="rele" v-show="flag">
+            <div class="release">
+              <p>版本</p>
+              <div @click="change1(1)" :class="config1 ? 'config' : 'configF'">
+                8GB+256GB
+              </div>
+              <div @click="change1(2)" :class="config2 ? 'config' : 'configF'">
+                12GB+256GB
+              </div>
+              <div @click="change1(3)" :class="config3 ? 'config' : 'configF'">
+                12GB+512GB
+              </div>
             </div>
-            <div @click="change2(2)" :class="config5 ? 'config' : 'configF'">
-              陶瓷白
+            <div class="release2">
+              <p>颜色</p>
+              <div @click="change2(1)" :class="config4 ? 'config' : 'configF'">
+                陶瓷黑
+              </div>
+              <div @click="change2(2)" :class="config5 ? 'config' : 'configF'">
+                陶瓷白
+              </div>
+            </div>
+            <div class="release3">
+              <p>套餐</p>
+              <div @click="change3(1)" :class="config6 ? 'config' : 'configF'">
+                标配
+              </div>
+              <div @click="change3(2)" :class="config7 ? 'config' : 'configF'">
+                套餐版(赠充电器)
+              </div>
             </div>
           </div>
-          <div class="release3">
-            <p>套餐</p>
-            <div @click="change3(1)" :class="config6 ? 'config' : 'configF'">
-              标配
-            </div>
-            <div @click="change3(2)" :class="config7 ? 'config' : 'configF'">
-              套餐版(赠充电器)
-            </div>
+          <div class="subNum">
+            <p>购买数量</p>
+            <van-stepper
+              v-model="value"
+              theme="round"
+              button-size="22"
+              disable-input
+            />
           </div>
-        </div>
-        <div class="subNum">
-          <p>购买数量</p>
-          <van-stepper
-            v-model="value"
-            theme="round"
-            button-size="22"
-            disable-input
-          />
-        </div>
-        <van-button
-          class="trueJoin"
-          type="danger"
-          color="linear-gradient(to right, #ff7c00, #ff5934)"
-          @click="addCart(productObj._id, value)"
-          >加入购物车</van-button
-        >
-      </van-popup>
-    </div>
-    <div class="option2">
-      <van-cell is-link @click="showPopup2">
-        送至
-        <span class="iconfont icon-dingwei">明天14:00前付款，预计后天送达</span>
-      </van-cell>
-      <van-popup
-        v-model="show2"
-        round
-        position="bottom"
-        :style="{ height: '60%' }"
-      >
-        <div class="address">
-          <h2>收货地址</h2>
-          <p>您还没有收货地址哦~</p>
           <van-button
             class="trueJoin"
             type="danger"
             color="linear-gradient(to right, #ff7c00, #ff5934)"
-            @click="goAddress"
-            >选择新地址</van-button
+            @click="addCart(productObj._id, value)"
+            >加入购物车</van-button
           >
-        </div>
-      </van-popup>
-    </div>
-    <div class="footer">
-      <van-tabbar v-model="active" active-color="#000" inactive-color="#000">
-        <van-tabbar-item icon="wap-home-o" @click="goHome"
-          >首页</van-tabbar-item
+        </van-popup>
+      </div>
+      <div class="option2">
+        <van-cell is-link @click="showPopup2">
+          送至
+          <span class="iconfont icon-dingwei"
+            >明天14:00前付款，预计后天送达</span
+          >
+        </van-cell>
+        <van-popup
+          v-model="show2"
+          round
+          position="bottom"
+          :style="{ height: '60%' }"
         >
-        <van-tabbar-item icon="service-o">客服</van-tabbar-item>
-        <van-tabbar-item icon="shopping-cart-o" @click="goCart"
-          ><span>购物车</span></van-tabbar-item
-        >
-        <van-button
-          type="danger"
-          color="linear-gradient(to right, #ff7c00, #ff5934)"
-          @click="showPopup"
-          >加入购物车</van-button
-        >
-      </van-tabbar>
+          <div class="address">
+            <h2>收货地址</h2>
+            <p>您还没有收货地址哦~</p>
+            <van-button
+              class="trueJoin"
+              type="danger"
+              color="linear-gradient(to right, #ff7c00, #ff5934)"
+              @click="goAddress"
+              >选择新地址</van-button
+            >
+          </div>
+        </van-popup>
+      </div>
+      <div class="footer">
+        <van-tabbar v-model="active" active-color="#000" inactive-color="#000">
+          <van-tabbar-item icon="wap-home-o" @click="goHome"
+            >首页</van-tabbar-item
+          >
+          <van-tabbar-item icon="service-o">客服</van-tabbar-item>
+          <van-tabbar-item icon="shopping-cart-o" @click="goCart"
+            ><span>购物车</span></van-tabbar-item
+          >
+          <van-button
+            type="danger"
+            color="linear-gradient(to right, #ff7c00, #ff5934)"
+            @click="showPopup"
+            >加入购物车</van-button
+          >
+        </van-tabbar>
+      </div>
     </div>
   </div>
 </template>
@@ -254,7 +261,7 @@ export default {
     },
     //事件监听
     montorScroll() {
-      const scrollTop = document.documentElement.scrollTop;
+      const scrollTop = document.querySelector(".details").scrollTop;
       // console.log(scrollTop);
       scrollTop > 70 ? (this.scrollB = true) : (this.scrollB = false);
       // console.log(this.scrollB);
@@ -333,7 +340,7 @@ export default {
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {
-    window.addEventListener("scroll", this.montorScroll);
+    window.addEventListener("scroll", this.montorScroll, true);
   },
   beforeCreate() {}, //生命周期 - 创建之前
   beforeMount() {}, //生命周期 - 挂载之前
@@ -341,7 +348,8 @@ export default {
   updated() {}, //生命周期 - 更新之后
   beforeDestroy() {}, //生命周期 - 销毁之前
   destroyed() {
-    window.removeEventListener("scroll", this.montorScroll);
+    window.removeEventListener("scroll", this.montorScroll, true);
+    // console.log(111);
   }, //生命周期 - 销毁完成
   activated() {}, //如果页面有keep-alive缓存功能，这个函数会触发
 };
@@ -354,7 +362,16 @@ export default {
   margin: 16px 0 16px 0;
 }
 .details {
-  height: 1000px;
+  /* height: 1000px; */
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  overflow: auto;
+  top: 0;
+  left: 0;
+}
+.inner {
+  min-height: 100%;
 }
 
 .icon-fanhui {
