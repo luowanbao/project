@@ -75,7 +75,15 @@ export default {
       }
     },
     amend(id) {
-      if(this.flag=="addr"){
+      if (this.flag==1) {
+         this.$router.push({
+          path: "/detail",
+          query: {
+            id: id,
+            
+          },
+        });
+      }else if(this.flag=="addr"){
         console.log("跳转修改");
         this.$router.push({
           path: "/newAddress",
