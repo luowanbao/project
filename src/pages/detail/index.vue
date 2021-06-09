@@ -331,7 +331,7 @@ export default {
         if (result.data.code == "success") {
           Toast("添加成功");
           this.show = false;
-          console.log(this.detailAddrId);
+          // console.log(this.detailAddrId);
           this.$store.commit("detailAddrId", this.detailAddrId);
           localStorage.setItem("detailAddrId", this.detailAddrId);
         }
