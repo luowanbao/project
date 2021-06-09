@@ -48,6 +48,7 @@ export default {
     return {
       list: [],
       flag:"addr",
+      spId:"",
     };
   },
   //计算属性 依赖缓存,多对一(即多个影响一个),不支持异步
@@ -79,8 +80,8 @@ export default {
          this.$router.push({
           path: "/detail",
           query: {
-            id: id,
-            
+            id: this.spId,
+            dzId:id
           },
         });
       }else if(this.flag=="addr"){
@@ -157,9 +158,14 @@ export default {
   created() {
     this.Dzlist();
     let flag = this.$route.query.flag;
+    let spId = this.$route.query.id;
     if(flag != undefined){
       this.flag = flag;
     }
+    if(spId){
+      this.spId=spId
+    }
+    console.log(this.spId,this.flag);
   },
   //生命周期 - 挂载完成（可以访问DOM元素）
   mounted() {},
