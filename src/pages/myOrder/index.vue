@@ -173,6 +173,28 @@ export default {
       }
     }
   },
+  /* 
+    组件内守卫，判断从我的里面点击的是哪一个
+  */
+  beforeRouteEnter(to, from, next) {
+    // 在渲染该组件的对应路由被 confirm 前调用
+    // 不！能！获取组件实例 `this`
+    // 因为当守卫执行前，组件实例还没被创建
+    // console.log(to, from, next);
+    console.log(from.query);
+    next(vm =>{
+      // 在我的页面给我传一个参数代表顶部tabbar的参数
+
+      if (vm.$route.query.activeName == 'toBePaid') {
+        vm.activeName = 'toBePaid';
+      } else if (vm.$route.query.activeName == 'allOrder') {
+        vm.activeName = 'allOrder';
+      } else if (vm.$route.query.activeName == 'toBeReceived') {
+        vm.activeName = 'toBeReceived';
+      }
+    });
+  },
+
   data() {
     //这里存放数据,返回值为一个对象
     return {
@@ -198,7 +220,7 @@ export default {
   methods: {
     onClickLeft() {
       console.log('点击了返回按钮');
-      this.$router.push('/cart');
+      this.$router.back();
     },
 
     onClickRight() {
