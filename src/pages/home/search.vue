@@ -88,20 +88,18 @@ export default {
     },
     async search() {
       if (this.value != "") {
-        console.log(1111);
+      
         this.falg = true;
       } else {
         this.falg = false;
       }
       let { data } = await reqProducts({ per: 1000, page: 1 });
       let list = data.products;
-      console.log(list);
+     
       this.arr = [];
       list.forEach((v) => {
         let x = v.name.includes(this.value);
         if (x == true) {
-          console.log(this.arr);
-
           if (this.arr.length < 10) {
             this.arr.push(v);
           }
