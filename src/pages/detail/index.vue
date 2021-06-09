@@ -245,6 +245,7 @@ export default {
 
       dzid: "",
       dzxx: {},
+      detailAddrId: "",
     };
   },
   //计算属性 依赖缓存,多对一(即多个影响一个),不支持异步
@@ -330,6 +331,9 @@ export default {
         if (result.data.code == "success") {
           Toast("添加成功");
           this.show = false;
+          console.log(this.detailAddrId);
+          this.$store.commit("detailAddrId", this.detailAddrId);
+          localStorage.setItem("detailAddrId", this.detailAddrId);
         }
       } else {
         Toast("请选择收货地址");
@@ -364,6 +368,7 @@ export default {
     this.id = this.$route.query.id;
     //获取到地址id
     this.dzid = this.$route.query.dzId;
+    this.detailAddrId = this.$route.query.dzId;
     // console.log(this.dzid);
     //调用通过id获取商品详情方法
     this.getDetail(this.id);
