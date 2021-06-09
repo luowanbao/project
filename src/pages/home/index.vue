@@ -426,7 +426,6 @@
               </li>
             </ul>
           </div>
-          <div class="bu"></div>
         </van-tab>
         <van-tab title="家电" class="jd">
           <img
@@ -484,7 +483,6 @@
             alt=""
             class="e2"
           />
-          <div class="bu"></div>
           <!-- <div class="bjb-list2s">
               <ul class="bjb-list2">
                 <li v-for="item in list10" :key="item._id">
@@ -1240,10 +1238,15 @@ div /deep/ .van-tab__text {
 div /deep/ .van-dropdown-menu__item {
   width: 0;
 }
-.bu {
-  width: 100%;
-  height: 60px;
-}
+/* .bu {
+  width: 43px;
+  height: 44px;
+  background: red;
+  position: fixed;
+  top: 50px;
+  left: 340px;
+  z-index: -1;
+} */
 /* 回到顶部 */
 .huidao {
   display: block;
