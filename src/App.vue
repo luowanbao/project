@@ -32,11 +32,13 @@ export default {
     let countProJs = localStorage.getItem("countProJs");
     let userInfo = localStorage.getItem("userInfo");
     let myOrderInfo = localStorage.getItem("myOrderInfo");
+    let detailAddrId = localStorage.getItem("detailAddrId");
     this.$store.commit("listProJs", JSON.parse(listProJs));
     this.$store.commit("sumPriceProJs", sumPriceProJs);
     this.$store.commit("countProJs", countProJs);
     this.$store.commit("userInfo", JSON.parse(userInfo));
     this.$store.commit("myOrderInfo", JSON.parse(myOrderInfo));
+    this.$store.commit("detailAddrId", detailAddrId);
   },
 };
 </script>

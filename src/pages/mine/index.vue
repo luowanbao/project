@@ -190,6 +190,7 @@ export default {
   margin-left: 15px;
 }
 .dingdan {
+  
   padding: 15px;
 }
 .quanbu {
@@ -199,7 +200,7 @@ export default {
 
 .wode {
   float: left;
-  font-size: 17px;
+  font-size: 15px;
 }
 .list {
   display: flex;
@@ -209,7 +210,7 @@ export default {
   margin-bottom: 30px;
 }
 .list span {
-  font-size: 30px;
+  font-size: 25px;
   color: gray;
 }
 .list p {
@@ -230,7 +231,7 @@ export default {
 .szlist .left {
   float: left;
   font-size: 25px;
-  line-height: 30px;
+  line-height: 43px;
   padding: 0 10px;
 }
 .szlist .xian {
@@ -242,11 +243,11 @@ export default {
 .szlist .right {
   float: right;
   font-size: 20px;
-  line-height: 35px;
+  line-height: 43px;
 }
 .szlist .fonts {
   font-size: 13px;
-  line-height: 35px;
+  line-height: 47px;
 }
 .szlist {
   display: flex;
@@ -254,8 +255,8 @@ export default {
 }
 .li {
   box-sizing: border-box;
-  height: 35px;
-  font-size: 13px;
+  height: 47px;
+  font-size: 14px;
 }
 .dibu {
   width: 100%;
