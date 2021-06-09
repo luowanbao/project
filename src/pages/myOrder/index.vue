@@ -5,7 +5,7 @@
       <van-nav-bar
         class="fenlei_top"
         v-show="topbarShow"
-        title="商品订单"
+        :title="currentTitle"
         left-arrow
         :fixed="true"
         :placeholder="true"
@@ -90,7 +90,7 @@
         <!-- 一个个的订单 -->
         <van-card
           v-show="daifukuanOrderShow"
-          v-for="item in orders"
+          v-for="item in daifukuanorders"
           :key="item._id"
           num="1"
           :price="item.price"
@@ -187,10 +187,15 @@ export default {
 
       if (vm.$route.query.activeName == 'toBePaid') {
         vm.activeName = 'toBePaid';
+        vm.currentTitle = "待付款";
+        vm.getNoPayOrders();
       } else if (vm.$route.query.activeName == 'allOrder') {
         vm.activeName = 'allOrder';
+        vm.currentTitle = "商品订单";
+        vm.getOrders();
       } else if (vm.$route.query.activeName == 'toBeReceived') {
         vm.activeName = 'toBeReceived';
+        vm.currentTitle = "待收货";
       }
     });
   },
@@ -198,6 +203,7 @@ export default {
   data() {
     //这里存放数据,返回值为一个对象
     return {
+      currentTitle: '商品订单',
       emptyImgShow: true,
       allOrderShow: false,
       daifukuanShow: true,
@@ -206,6 +212,7 @@ export default {
       topbarShow: true,
       activeName: 'allOrder',
       orders: [],
+      daifukuanorders: [],
       ordercreatedAt: 0,
       orderNum: 0,
       shouldpay: 0,
@@ -215,7 +222,8 @@ export default {
   //计算属性 依赖缓存,多对一(即多个影响一个),不支持异步
   computed: {},
   //监控data中的数据变化,不依赖缓存,一对多,支持异步
-  watch: {},
+  watch: {
+  },
   //方法集合
   methods: {
     onClickLeft() {
@@ -250,9 +258,9 @@ export default {
     // 获取所有未支付的订单详情
     async getNoPayOrders() {
       const result = await reqallOrders();
-      this.orders = result.data.orders.filter(v => v.isPayed == false);
+      this.daifukuanorders = result.data.orders.filter(v => v.isPayed == false);
 
-      if (this.orders.length != 0) {
+      if (this.daifukuanorders.length != 0) {
         this.daifukuanShow = false;
         this.daifukuanOrderShow = true;
       }
@@ -282,17 +290,27 @@ export default {
     changetabbar(name, title) {
       console.log(name, title);
       if (name == "allOrder") {
+        // 如果点击的是 全部 就去请求全部的订单
         this.getOrders();
+        this.currentTitle = "商品订单";
       }
 
       if (name == "toBePaid") {
+        // 如果点击的是 待付款 就去请求未支付的订单
         this.getNoPayOrders();
+        this.currentTitle = "待付款";
+      }
+
+      if (name == "toBeReceived") {
+        // 如果点击的是 待收货
+        this.currentTitle = "待收货";
       }
     },
 
   },
   //生命周期 - 创建完成（可以访问当前this实例）
   created() {
+    // 如果直接是跳转到了 订单页面的话 就默认去获取全部的订单列表
     this.getOrders();
     this.getProList();
   },
