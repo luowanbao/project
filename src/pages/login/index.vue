@@ -19,6 +19,7 @@
         <img
           src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fn.sinaimg.cn%2Fsinakd10118%2F560%2Fw1080h1080%2F20210528%2F447b-kquziii0966349.jpg&refer=http%3A%2F%2Fn.sinaimg.cn&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1625628894&t=02c4d4d75532c4192f2952138a072f62"
           alt=""
+          @click="goHome"
         />
       </div>
       <p>让每个人都能享受科技的乐趣</p>
@@ -93,6 +94,10 @@ export default {
   watch: {},
   //方法集合
   methods: {
+    //回到首页
+    goHome() {
+      this.$router.push("/");
+    },
     //路由跳转到注册
     goReg() {
       this.$router.push("/reg");

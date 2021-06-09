@@ -9,17 +9,17 @@
         ><span>{{ zhuce }}</span>
       </div>
     </div>
-    <div class="dingdan" @click="dingdan()">
+    <div class="dingdan" @click="allorderclick">
       <p class="wode">我的订单</p>
       <p class="quanbu">全部订单 <span class="iconfont icon-qianjin"></span></p>
     </div>
     <hr />
     <ul class="list">
-      <li @click="dingdan()">
+      <li @click="daifukuanclick">
         <span class="iconfont icon-daifukuan"></span>
         <p>待付款</p>
       </li>
-      <li @click="dingdan()">
+      <li @click="daishouhuoclick">
         <span class="iconfont icon-daishouhuo1"></span>
         <p>待收货</p>
       </li>
@@ -110,13 +110,29 @@ export default {
   watch: {},
   //方法集合
   methods: {
-    dingdan() {
-      if (!getToken("token")) {
-        this.$router.push("/login");
-      }else{
-        this.$router.push("/myOrder");
-      }
-
+      daishouhuoclick() {
+      this.$router.push({
+        path: '/myOrder',
+        query: {
+          activeName: 'toBeReceived',
+        }
+      });
+    },
+   allorderclick() {
+      this.$router.push({
+        path: '/myOrder',
+        query: {
+          activeName: 'allOrder',
+        }
+      });
+    },
+    daifukuanclick() {
+      this.$router.push({
+        path: '/myOrder',
+        query: {
+          activeName: 'toBePaid',
+        }
+      });
     },
     login() {
       if (!getToken("token")) {
@@ -174,6 +190,7 @@ export default {
   margin-left: 15px;
 }
 .dingdan {
+  
   padding: 15px;
 }
 .quanbu {
@@ -183,7 +200,7 @@ export default {
 
 .wode {
   float: left;
-  font-size: 17px;
+  font-size: 15px;
 }
 .list {
   display: flex;
@@ -193,7 +210,7 @@ export default {
   margin-bottom: 30px;
 }
 .list span {
-  font-size: 30px;
+  font-size: 25px;
   color: gray;
 }
 .list p {
@@ -214,7 +231,7 @@ export default {
 .szlist .left {
   float: left;
   font-size: 25px;
-  line-height: 30px;
+  line-height: 43px;
   padding: 0 10px;
 }
 .szlist .xian {
@@ -226,11 +243,11 @@ export default {
 .szlist .right {
   float: right;
   font-size: 20px;
-  line-height: 35px;
+  line-height: 43px;
 }
 .szlist .fonts {
   font-size: 13px;
-  line-height: 35px;
+  line-height: 47px;
 }
 .szlist {
   display: flex;
@@ -238,8 +255,8 @@ export default {
 }
 .li {
   box-sizing: border-box;
-  height: 35px;
-  font-size: 13px;
+  height: 47px;
+  font-size: 14px;
 }
 .dibu {
   width: 100%;

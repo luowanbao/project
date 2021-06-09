@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-05 15:53:18
- * @LastEditTime: 2021-06-08 21:47:54
+ * @LastEditTime: 2021-06-09 17:41:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \project\project\src\pages\cart\index.vue
@@ -417,7 +417,7 @@ export default {
 
 .cart .kong-cart {
   background: #ebebeb;
-  margin-top: 51px;
+  margin: 51px 0;
 }
 .cart .kong-cart a {
   display: block;

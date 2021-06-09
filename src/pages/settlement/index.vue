@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-07 16:41:33
- * @LastEditTime: 2021-06-08 21:27:35
+ * @LastEditTime: 2021-06-09 17:40:14
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \project\project\src\pages\settlement\index.vue
@@ -244,7 +244,7 @@ export default {
       show: false,
       value1: "176****5018",
       list: [],
-      address: null,
+      address: {},
       addrFlag: false,
       name: "",
     };
@@ -273,11 +273,6 @@ export default {
         },
       });
     },
-    // else {
-    //     this.$router.push({
-    //       path: "/newAddress",
-    //     });
-    //   }
     toggle(index) {
       this.$refs.checkboxes[index].toggle();
     },
@@ -308,7 +303,6 @@ export default {
     async getAddrById(id) {
       this.addrFlag = true;
       let res = await reqGetAddrById(id);
-      console.log(res.data);
       this.name = res.data.receiver.slice(0, -6);
       this.address = res.data;
     },
@@ -363,8 +357,12 @@ export default {
     this.list = this.$store.state.listProJs;
     // this.getProDetail(id);
     let addrID = this.$route.query.id;
+    let detailAddrId = this.$store.state.detailAddrId; //详情页面传过来的地址id
+    console.log(detailAddrId);
     if (addrID) {
       this.getAddrById(addrID);
+    } else if (detailAddrId) {
+      this.getAddrById(detailAddrId);
     } else {
       this.getAddressList();
     }

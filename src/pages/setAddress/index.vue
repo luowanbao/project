@@ -48,6 +48,7 @@ export default {
     return {
       list: [],
       flag:"addr",
+      spId:"",
     };
   },
   //计算属性 依赖缓存,多对一(即多个影响一个),不支持异步
@@ -59,7 +60,6 @@ export default {
     // 默认地址
     moren(e, id) {
       let checked = e.target.checked;
-      console.log(checked, id);
       if (checked == true) {
         this.list.forEach((v,i) => {
           if (v._id == id) {
@@ -75,8 +75,15 @@ export default {
       }
     },
     amend(id) {
-      if(this.flag=="addr"){
-        console.log("跳转修改");
+      if (this.flag==1) {
+         this.$router.push({
+          path: "/detail",
+          query: {
+            id: this.spId,
+            dzId:id
+          },
+        });
+      }else if(this.flag=="addr"){
         this.$router.push({
           path: "/newAddress",
           query: {
@@ -84,7 +91,6 @@ export default {
           },
         });
       }else{
-        console.log("跳转car");
         this.$router.push({
           path: "/settlement",
           query: {
@@ -100,7 +106,6 @@ export default {
         message: "你确定要删除这条地址吗？",
       })
         .then(() => {
-          console.log(id),
             deletApi(id).then((res) => {
               if (res.status == 200) {
                 Toast("删除成功");
@@ -112,9 +117,6 @@ export default {
               }
             });
         })
-        .catch(() => {
-          console.log("点击取消了");
-        });
     },
     clickLeft() {
       this.$router.go(-1);
@@ -126,7 +128,6 @@ export default {
     async Dzlist() {
       let res = await DzlistApi();
       if (res.status == 200) {
-        console.log(res.data.addresses);
         this.list = res.data.addresses;
         this.list.forEach((v) => {
           v.mobile = v.mobile.replace(/(?<=\d{3})\d{4}(?=\d{4})/, "****");
@@ -149,8 +150,12 @@ export default {
   created() {
     this.Dzlist();
     let flag = this.$route.query.flag;
+    let spId = this.$route.query.id;
     if(flag != undefined){
       this.flag = flag;
+    }
+    if(spId){
+      this.spId=spId
     }
   },
   //生命周期 - 挂载完成（可以访问DOM元素）

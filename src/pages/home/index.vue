@@ -683,7 +683,6 @@ export default {
       });
     },
     tz6(id) {
-      alert(id);
       this.$router.push({
         path: "/detail",
         query: {
@@ -692,7 +691,6 @@ export default {
       });
     },
     tz7(id) {
-      alert(id);
       this.$router.push({
         path: "/detail",
         query: {
@@ -701,7 +699,6 @@ export default {
       });
     },
     tz8(id) {
-      alert(id);
       this.$router.push({
         path: "/detail",
         query: {
@@ -710,7 +707,6 @@ export default {
       });
     },
     tz9(id) {
-      alert(id);
       this.$router.push({
         path: "/detail",
         query: {

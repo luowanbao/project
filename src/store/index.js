@@ -20,6 +20,7 @@ const store = new Vuex.Store({
         sumPriceProJs: 0,
         countProJs: 0,
         myOrderInfo: null,
+        detailAddrId: null,
     },
     mutations: {
         fromPath(state, fromPath) {
@@ -42,6 +43,9 @@ const store = new Vuex.Store({
         },
         myOrderInfo(state, myOrderInfo) {
             state.myOrderInfo = myOrderInfo;
+        },
+        detailAddrId(state, detailAddrId) {
+            state.detailAddrId = detailAddrId;
         }
 
     },
