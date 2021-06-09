@@ -315,6 +315,7 @@ export default {
       this.$router.push({
         path: "setAddress",
         query: {
+          id: this.id,
           flag: 1,
         },
       });
