@@ -55,7 +55,7 @@ export default {
     },
     async onSave(content) {
       // 获取表单信息
-      console.log(content);
+  
       let params = {
         receiver: `${content.name}${content.areaCode}`,
         mobile: `${content.tel}`,
@@ -63,15 +63,15 @@ export default {
         address: `${content.addressDetail}`,
         isDefault: content.isDefault,
       };
-      console.log(params);
+     
       // 如果没有id发送创建请求
       if (this.$route.query.id == undefined) {
-        console.log(params);
+        
         let res = await newDzApi(params);
         if (res.status == 200) {
           Toast("创建成功");
           this.$router.push("/setAddress")
-          console.log(res);
+        
         }
       } else {
         // 没有请求头这时候要修改
@@ -105,7 +105,6 @@ export default {
   mounted() {
     // alert(this.$route.query.id);
     if (this.$route.query.id != undefined) {
-      // console.log(1111);
       this.onedd(this.$route.query.id);
     }
   },

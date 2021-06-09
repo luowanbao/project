@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2021-06-05 15:53:18
- * @LastEditTime: 2021-06-09 10:01:54
+ * @LastEditTime: 2021-06-09 17:41:03
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: \project\project\src\pages\cart\index.vue
@@ -143,13 +143,11 @@ export default {
   computed: {
     sumPrice() {
       // let num = 0;
-      return (
-        this.cartList
-          .filter((item) => item.checked)
-          .reduce((pre, cur) => {
-            return pre + parseInt(cur.product.price) * parseInt(cur.quantity);
-          }, 0) / 100
-      );
+      return this.cartList
+        .filter((item) => item.checked)
+        .reduce((pre, cur) => {
+          return pre + parseInt(cur.product.price) * parseInt(cur.quantity);
+        }, 0);
     },
   },
   //监控data中的数据变化,不依赖缓存,一对多,支持异步
