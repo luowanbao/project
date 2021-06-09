@@ -70,13 +70,16 @@ export default {
         let res = await newDzApi(params);
         if (res.status == 200) {
           Toast("创建成功");
-          // this.$router.push("/setAddress")
+          this.$router.push("/setAddress")
           console.log(res);
         }
       } else {
         // 没有请求头这时候要修改
         let res = await putApi(this.$route.query.id, params );
-        console.log(res);
+         Toast("修改成功");
+        if (res.status == 200) {
+          this.$router.push("/setAddress")
+        }
       }
     },
     onDelete() {
