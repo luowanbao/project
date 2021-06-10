@@ -1,6 +1,6 @@
 <template>
   <div class="myOrder">
-    <!-- header部分 -->
+    <!-- header部分  -->
     <transition name="topbar">
       <van-nav-bar
         class="fenlei_top"
@@ -18,11 +18,10 @@
       </van-nav-bar>
     </transition>
 
-    
-
-    <!-- 切换栏 全部 -->
+    <!-- 切换栏 -->
     <van-tabs v-model="activeName" :border="true" animated @click="changetabbar">
 
+      <!-- 全部栏 -->
       <van-tab title="全部" name="allOrder">
         <!-- 空状态展示 -->
         <van-empty
@@ -33,24 +32,27 @@
         />
 
         <!-- 一个个的订单 -->
-        <van-card
-          v-show="allOrderShow"
-          v-for="item in orders"
-          :key="item._id"
-          num="1"
-          :price="item.price"
-          title="小米100测试机"
-          thumb="https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1617008568.53329550.jpg"
-        >
-          <template #tags>
-            <van-tag plain type="warning" color="rgba(0,0,0,.5)" text-color="rgba(0,0,0,.5)">订单编号：{{ item.no }}</van-tag>
-            <van-tag plain type="warning" color="rgba(0,0,0,.5)" text-color="rgba(0,0,0,.5)">创建时间：{{ item.createdAt | dateFormat('yyyy-mm-dd h:m:s') }}</van-tag>
-          </template>
-          <!-- <template #footer>
-            <van-button size="mini">按钮</van-button>
-            <van-button size="mini">按钮</van-button>
-          </template> -->
-        </van-card>
+        <lazy-component>
+          <van-card
+            :lazy-load="true"
+            v-show="allOrderShow"
+            v-for="item in orders"
+            :key="item._id"
+            num="1"
+            :price="item.price"
+            title="小米100测试机"
+            thumb="https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1617008568.53329550.jpg"
+          >
+            <template #tags>
+              <van-tag plain type="warning" color="rgba(0,0,0,.5)" text-color="rgba(0,0,0,.5)">订单编号：{{ item.no }}</van-tag>
+              <van-tag plain type="warning" color="rgba(0,0,0,.5)" text-color="rgba(0,0,0,.5)">创建时间：{{ item.createdAt | dateFormat('yyyy-mm-dd h:m:s') }}</van-tag>
+            </template>
+            <!-- <template #footer>
+              <van-button size="mini">按钮</van-button>
+              <van-button size="mini">按钮</van-button>
+            </template> -->
+          </van-card>
+        </lazy-component>
 
         <!-- 底部合计 -->
         <div class="van-ellipsis" v-show="allOrderShow">
@@ -77,7 +79,7 @@
         </div>
       </van-tab>
 
-      <!-- 待付款 -->
+      <!-- 待付款栏 -->
       <van-tab title="待付款" name="toBePaid">
         <!-- 空状态展示 -->
         <van-empty
@@ -88,24 +90,27 @@
         />
 
         <!-- 一个个的订单 -->
-        <van-card
-          v-show="daifukuanOrderShow"
-          v-for="item in daifukuanorders"
-          :key="item._id"
-          num="1"
-          :price="item.price"
-          title="小米100测试机"
-          thumb="https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1617008568.53329550.jpg"
-        >
-          <template #tags>
-            <van-tag plain type="warning" color="rgba(0,0,0,.5)" text-color="rgba(0,0,0,.5)">订单编号：{{ item.no }}</van-tag>
-            <van-tag plain type="warning" color="rgba(0,0,0,.5)" text-color="rgba(0,0,0,.5)">创建时间：{{ item.createdAt | dateFormat('yyyy-mm-dd h:m:s') }}</van-tag>
-          </template>
-          <!-- <template #footer>
-            <van-button size="mini">按钮</van-button>
-            <van-button size="mini">按钮</van-button>
-          </template> -->
-        </van-card>
+        <lazy-component>
+          <van-card
+            :lazy-load="true"
+            v-show="daifukuanOrderShow"
+            v-for="item in daifukuanorders"
+            :key="item._id"
+            num="1"
+            :price="item.price"
+            title="小米100测试机"
+            thumb="https://cdn.cnbj0.fds.api.mi-img.com/b2c-shopapi-pms/pms_1617008568.53329550.jpg"
+          >
+            <template #tags>
+              <van-tag plain type="warning" color="rgba(0,0,0,.5)" text-color="rgba(0,0,0,.5)">订单编号：{{ item.no }}</van-tag>
+              <van-tag plain type="warning" color="rgba(0,0,0,.5)" text-color="rgba(0,0,0,.5)">创建时间：{{ item.createdAt | dateFormat('yyyy-mm-dd h:m:s') }}</van-tag>
+            </template>
+            <!-- <template #footer>
+              <van-button size="mini">按钮</van-button>
+              <van-button size="mini">按钮</van-button>
+            </template> -->
+          </van-card>
+        </lazy-component>
 
         <!-- 底部合计 -->
         <div class="van-ellipsis" v-show="allOrderShow">
@@ -132,7 +137,7 @@
         </div>
       </van-tab>
 
-      <!-- 待收货 -->
+      <!-- 待收货栏 -->
       <van-tab title="待收货" name="toBeReceived">
         <!-- 空状态展示 -->
         <van-empty
@@ -152,6 +157,13 @@
 //例如：import 《组件名称》 from '《组件路径》';
 import { reqallOrders } from '../../api/order';
 import {reqGetProList} from "../../api/cart";
+import { Lazyload } from 'vant';
+import Vue from 'vue';
+
+// 懒加载组件用法
+Vue.use(Lazyload, {
+  lazyComponent: true,
+});
 
 export default {
   //import引入的组件需要注册到对象(components)中才能使用
